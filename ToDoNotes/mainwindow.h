@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
+#include <QTreeWidgetItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,6 +22,10 @@ private slots:
 
 
     void on_Add_New_btn_clicked();
+
+
+
+    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

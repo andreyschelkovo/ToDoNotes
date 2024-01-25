@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
 }
 
 MainWindow::~MainWindow()
@@ -17,13 +18,22 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Add_New_btn_clicked()
 {
-    ui->listWidget->addItem(ui->lineEdit->text());
+
+    QTreeWidgetItem *rootnamecompany = new QTreeWidgetItem(ui->treeWidget);
+    rootnamecompany->setData(0,Qt::DisplayRole,ui->lineEdit->text());
+    ui->treeWidget->addTopLevelItem(rootnamecompany);
+    QTreeWidgetItem *child = new QTreeWidgetItem();
+    child->setText(0,"qwerty");
+    rootnamecompany->addChild(child);
+
     ui->lineEdit->clear();
 }
 
 
-void MainWindow::on_listWidget_clicked(const QModelIndex &index)
+
+void MainWindow::on_pushButton_clicked()
 {
-    ui->listWidget
+
+
 }
 

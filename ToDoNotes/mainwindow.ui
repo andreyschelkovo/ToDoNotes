@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>1009</width>
     <height>600</height>
    </rect>
   </property>
@@ -19,7 +19,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>801</width>
+      <width>881</width>
       <height>581</height>
      </rect>
     </property>
@@ -109,20 +109,43 @@
          <string>Add_New</string>
         </property>
        </widget>
-       <widget class="QListWidget" name="listWidget">
+       <widget class="QTreeWidget" name="treeWidget">
         <property name="geometry">
          <rect>
-          <x>50</x>
-          <y>100</y>
-          <width>311</width>
-          <height>331</height>
+          <x>10</x>
+          <y>90</y>
+          <width>321</width>
+          <height>341</height>
          </rect>
         </property>
+        <column>
+         <property name="text">
+          <string>1</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>New Column</string>
+         </property>
+        </column>
         <item>
          <property name="text">
           <string>New Item</string>
          </property>
         </item>
+       </widget>
+       <widget class="QPushButton" name="pushButton">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>20</y>
+          <width>80</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>PushButton</string>
+        </property>
        </widget>
       </widget>
       <widget class="QWidget" name="tab_11">
@@ -154,7 +177,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1009</width>
      <height>21</height>
     </rect>
    </property>

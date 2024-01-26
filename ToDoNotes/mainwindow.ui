@@ -86,7 +86,7 @@
        <attribute name="title">
         <string>Stock</string>
        </attribute>
-       <widget class="QLineEdit" name="lineEdit">
+       <widget class="QLineEdit" name="lineEdit_company">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -114,27 +114,32 @@
          <rect>
           <x>10</x>
           <y>90</y>
-          <width>321</width>
+          <width>461</width>
           <height>341</height>
          </rect>
         </property>
         <column>
          <property name="text">
-          <string>1</string>
+          <string>Company</string>
          </property>
         </column>
         <column>
          <property name="text">
-          <string>New Column</string>
+          <string>Date</string>
          </property>
         </column>
-        <item>
+        <column>
          <property name="text">
-          <string>New Item</string>
+          <string>Price</string>
          </property>
-        </item>
+        </column>
+        <column>
+         <property name="text">
+          <string>Count</string>
+         </property>
+        </column>
        </widget>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="Save_Price_btn">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -144,7 +149,43 @@
          </rect>
         </property>
         <property name="text">
-         <string>PushButton</string>
+         <string>Save_Price</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_price">
+        <property name="geometry">
+         <rect>
+          <x>470</x>
+          <y>20</y>
+          <width>113</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="value">
+        <property name="geometry">
+         <rect>
+          <x>610</x>
+          <y>20</y>
+          <width>51</width>
+          <height>24</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="count_label">
+        <property name="geometry">
+         <rect>
+          <x>610</x>
+          <y>0</y>
+          <width>49</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Count</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </widget>

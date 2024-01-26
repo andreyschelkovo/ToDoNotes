@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    Date = Date.currentDate();
 
 }
 
@@ -18,22 +19,32 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Add_New_btn_clicked()
 {
-
-    QTreeWidgetItem *rootnamecompany = new QTreeWidgetItem(ui->treeWidget);
-    rootnamecompany->setData(0,Qt::DisplayRole,ui->lineEdit->text());
+    this->rootnamecompany = new QTreeWidgetItem(ui->treeWidget);
+    rootnamecompany->setData(0,Qt::DisplayRole,ui->lineEdit_company->text());
     ui->treeWidget->addTopLevelItem(rootnamecompany);
-    QTreeWidgetItem *child = new QTreeWidgetItem();
-    child->setText(0,"qwerty");
-    rootnamecompany->addChild(child);
 
-    ui->lineEdit->clear();
+
+    ui->lineEdit_company->clear();
 }
 
 
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_Save_Price_btn_clicked()
 {
+    QTreeWidgetItem *child = new QTreeWidgetItem();
+    QTreeWidgetItem *current_company;
+    current_company = ui->treeWidget->currentItem();
+    child->setText(1,Date.toString("dd.MM.yyyy"));
+    child->setText(2,ui->lineEdit_price->text());
+    child->setText(3,ui->value->text());
+    ui->lineEdit_price->clear();
+    ui->value->clear();
 
 
+    current_company->addChild(child);
+
+
+
+    ui->lineEdit_price->clear();
 }
 

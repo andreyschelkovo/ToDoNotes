@@ -4,7 +4,8 @@
 #include <QMainWindow>
 #include <QtWidgets>
 #include <QTreeWidgetItem>
-
+#include <QDate>
+#include <QSpinBox>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -25,9 +26,12 @@ private slots:
 
 
 
-    void on_pushButton_clicked();
+    void on_Save_Price_btn_clicked();
 
 private:
     Ui::MainWindow *ui;
+    QTreeWidgetItem *rootnamecompany;
+    QDate Date;
+
 };
 #endif // MAINWINDOW_H

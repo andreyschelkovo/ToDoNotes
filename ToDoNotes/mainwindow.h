@@ -28,6 +28,14 @@ private slots:
 
     void on_Save_Price_btn_clicked();
 
+    void on_lineEdit_company_returnPressed();
+
+    void on_Add_Task_btn_clicked();
+
+    void on_Add_Task_lineEdit_returnPressed();
+
+    void on_Delete_btn_clicked();
+
 private:
     Ui::MainWindow *ui;
     QTreeWidgetItem *rootnamecompany;

@@ -6,6 +6,7 @@
 #include <QTreeWidgetItem>
 #include <QDate>
 #include <QSpinBox>
+#include <QListWidget>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -35,6 +36,8 @@ private slots:
     void on_Add_Task_lineEdit_returnPressed();
 
     void on_Delete_btn_clicked();
+
+    void on_Done_btn_clicked();
 
 private:
     Ui::MainWindow *ui;

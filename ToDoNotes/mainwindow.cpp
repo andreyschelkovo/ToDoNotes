@@ -69,18 +69,33 @@ void MainWindow::on_Add_Task_btn_clicked()
     QListWidgetItem *item = new QListWidgetItem();
     item->setText(Date.toString("dd.MM.yyyy") + " " + ": " + ui->Add_Task_lineEdit->text());
     ui->New_Tasks_listWidget->addItem(item);
+    ui->Add_Task_lineEdit->clear();
 }
 
 
 void MainWindow::on_Add_Task_lineEdit_returnPressed()
 {
      ui->New_Tasks_listWidget->addItem(Date.toString("dd.MM.yyyy") + " " + ": " + ui->Add_Task_lineEdit->text());
+     ui->Add_Task_lineEdit->clear();
 }
 
 
 void MainWindow::on_Delete_btn_clicked()
 {
-     QListWidgetItem *item = ui->New_Tasks_listWidget->currentItem();
-     ui->New_Tasks_listWidget->removeItemWidget(item);
+     QListWidgetItem *itemrow = ui->New_Tasks_listWidget->takeItem(ui->New_Tasks_listWidget->currentRow());
+
+     delete itemrow;
+}
+
+
+void MainWindow::on_Done_btn_clicked()
+{
+     QListWidgetItem *itemfrom = ui->New_Tasks_listWidget->item(ui->New_Tasks_listWidget->currentRow());
+     QListWidgetItem *itemto = new QListWidgetItem();
+     itemto->setText(Date.toString("dd.MM.yyyy") + " " + ": " + itemfrom->text());
+     ui->Done_Tasks_listWidget->addItem(itemto);
+     itemto->setBackground(Qt::green);
+     delete itemfrom;
+
 }
 

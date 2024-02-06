@@ -7,6 +7,7 @@
 #include <QDate>
 #include <QSpinBox>
 #include <QListWidget>
+#include <deleted_description_form.h>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -43,6 +44,8 @@ private:
     Ui::MainWindow *ui;
     QTreeWidgetItem *rootnamecompany;
     QDate Date;
+    Deleted_description_form *deldescrform;
+
 
 };
 #endif // MAINWINDOW_H

@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    deldescrform = new Deleted_description_form();
     Date = Date.currentDate();
 
 }
@@ -82,20 +84,28 @@ void MainWindow::on_Add_Task_lineEdit_returnPressed()
 
 void MainWindow::on_Delete_btn_clicked()
 {
+     QListWidgetItem *item_created_to_show_on_deleted_list = new QListWidgetItem();
      QListWidgetItem *itemrow = ui->New_Tasks_listWidget->takeItem(ui->New_Tasks_listWidget->currentRow());
+     item_created_to_show_on_deleted_list->setText(Date.toString("dd.MM.yyyy") + " " + ": " + itemrow->text());
+     ui->Deleted_Tasks_listWidget->addItem(item_created_to_show_on_deleted_list);
 
      delete itemrow;
+
+     deldescrform->show();
+
 }
 
 
 void MainWindow::on_Done_btn_clicked()
-{
+     {
      QListWidgetItem *itemfrom = ui->New_Tasks_listWidget->item(ui->New_Tasks_listWidget->currentRow());
      QListWidgetItem *itemto = new QListWidgetItem();
      itemto->setText(Date.toString("dd.MM.yyyy") + " " + ": " + itemfrom->text());
      ui->Done_Tasks_listWidget->addItem(itemto);
      itemto->setBackground(Qt::green);
      delete itemfrom;
+
+
 
 }
 

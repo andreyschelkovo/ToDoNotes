@@ -12,3 +12,11 @@ Deleted_description_form::~Deleted_description_form()
 {
     delete ui;
 }
+
+void Deleted_description_form::on_pushButton_save_del_description_clicked()
+{
+    emit signal_for_del_note(ui->textEdit_Deleted_description->document()->toPlainText());
+    this->close();
+
+}
+

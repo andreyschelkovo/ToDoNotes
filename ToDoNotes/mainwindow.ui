@@ -135,7 +135,7 @@
        <string>Delete</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -162,6 +162,29 @@
         <widget class="QListWidget" name="New_Tasks_listWidget"/>
        </item>
       </layout>
+     </widget>
+     <widget class="QTextEdit" name="textEdit_Deleted_example">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>340</y>
+        <width>261</width>
+        <height>161</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_del_note_exmpl">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>310</y>
+        <width>131</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Deleted note example</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">

@@ -46,6 +46,12 @@ private:
     QDate Date;
     Deleted_description_form *deldescrform;
 
+public slots:
+
+    void slot_for_copy_del_note(QString msg);
+
+
+
 
 };
 #endif // MAINWINDOW_H

@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     deldescrform = new Deleted_description_form();
+    connect(deldescrform,&Deleted_description_form::signal_for_del_note,this,&MainWindow::slot_for_copy_del_note);
     Date = Date.currentDate();
 
 }
@@ -107,5 +108,12 @@ void MainWindow::on_Done_btn_clicked()
 
 
 
-}
+     }
+
+void MainWindow::slot_for_copy_del_note(QString msg)
+     {
+     ui->textEdit_Deleted_example->setText(msg);
+
+
+     }
 

@@ -24,7 +24,9 @@ MainWindow::~MainWindow()
 void MainWindow::on_Add_New_btn_clicked()
 {
     this->rootnamecompany = new QTreeWidgetItem(ui->treeWidget);
+    //QString test("text");
     rootnamecompany->setData(0,Qt::DisplayRole,ui->lineEdit_company->text());
+    rootnamecompany->setText(3,"0");
     ui->treeWidget->addTopLevelItem(rootnamecompany);
 
 
@@ -101,6 +103,7 @@ void MainWindow::on_Done_btn_clicked()
      {
      QListWidgetItem *itemfrom = ui->New_Tasks_listWidget->item(ui->New_Tasks_listWidget->currentRow());
      QListWidgetItem *itemto = new QListWidgetItem();
+     Date = Date.currentDate();
      itemto->setText(Date.toString("dd.MM.yyyy") + " " + ": " + itemfrom->text());
      ui->Done_Tasks_listWidget->addItem(itemto);
      itemto->setBackground(Qt::green);

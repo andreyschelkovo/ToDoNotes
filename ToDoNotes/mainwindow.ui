@@ -318,16 +318,6 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="value">
-        <property name="geometry">
-         <rect>
-          <x>610</x>
-          <y>20</y>
-          <width>51</width>
-          <height>24</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QLabel" name="count_label">
         <property name="geometry">
          <rect>
@@ -342,6 +332,16 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBox_count_of_securities">
+        <property name="geometry">
+         <rect>
+          <x>620</x>
+          <y>20</y>
+          <width>42</width>
+          <height>25</height>
+         </rect>
         </property>
        </widget>
       </widget>

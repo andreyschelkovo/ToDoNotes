@@ -42,9 +42,9 @@ void MainWindow::on_Save_Price_btn_clicked()
     current_company = ui->treeWidget->currentItem();
     child->setText(1,Date.toString("dd.MM.yyyy"));
     child->setText(2,ui->lineEdit_price->text());
-    child->setText(3,ui->value->text());
+    child->setText(3,ui->spinBox_count_of_securities->text());
     ui->lineEdit_price->clear();
-    ui->value->clear();
+    ui->spinBox_count_of_securities->clear();
 
 
     current_company->addChild(child);
@@ -58,7 +58,9 @@ void MainWindow::on_Save_Price_btn_clicked()
 void MainWindow::on_lineEdit_company_returnPressed()
 {
     this->rootnamecompany = new QTreeWidgetItem(ui->treeWidget);
+    //QString test("text");
     rootnamecompany->setData(0,Qt::DisplayRole,ui->lineEdit_company->text());
+    rootnamecompany->setText(3,"0");
     ui->treeWidget->addTopLevelItem(rootnamecompany);
 
 

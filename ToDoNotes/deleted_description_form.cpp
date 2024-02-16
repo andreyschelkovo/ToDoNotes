@@ -6,6 +6,7 @@ Deleted_description_form::Deleted_description_form(QWidget *parent) :
     ui(new Ui::Deleted_description_form)
 {
     ui->setupUi(this);
+    ui->label_instead_icon->setToolTip(tr("Delete reason Description"));
 }
 
 Deleted_description_form::~Deleted_description_form()

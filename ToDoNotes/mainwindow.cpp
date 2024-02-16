@@ -10,6 +10,17 @@ MainWindow::MainWindow(QWidget *parent)
     deldescrform = new Deleted_description_form();
     connect(deldescrform,&Deleted_description_form::signal_for_del_note,this,&MainWindow::slot_for_copy_del_note);
     Date = Date.currentDate();
+    //securities
+    ui->lineEdit_company->setToolTip(tr("Here you should write the company name if you want to buy some their securities"));
+    ui->treeWidget->setToolTip(tr("Here you will see all company names and their every date+price+count of securities"));
+    ui->lineEdit_price->setToolTip(tr("Here you shoul write a price of securuties which you want to buy. It will be saved"));
+    ui->spinBox_count_of_securities->setToolTip(tr("Here you should choose count of securities with exactly price"));
+    //Home Tasks
+    ui->Add_Task_lineEdit->setToolTip(tr("Write your task"));
+    ui->New_Tasks_listWidget->setToolTip(tr("All unfulfilled tasks with added date and deadlines"));
+    ui->Done_Tasks_listWidget->setToolTip(tr("All completed tasks with completed date of completion "));
+    ui->Deleted_Tasks_listWidget->setToolTip(tr("All deleted tasks with description why it was deleted"));
+
 
 }
 

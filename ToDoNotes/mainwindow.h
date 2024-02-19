@@ -40,6 +40,8 @@ private slots:
 
     void on_Done_btn_clicked();
 
+    void on_pushButton_Repeat_clicked();
+
 private:
     Ui::MainWindow *ui;
     QTreeWidgetItem *rootnamecompany;

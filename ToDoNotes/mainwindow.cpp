@@ -84,16 +84,21 @@ void MainWindow::on_lineEdit_company_returnPressed()
 void MainWindow::on_Add_Task_btn_clicked()
 {
      //ui->New_Tasks_listWidget->addItem(Date.toString("dd.MM.yyyy") + " " + ": " + ui->Add_Task_lineEdit->text());
-    QListWidgetItem *item = new QListWidgetItem();
-    item->setText(Date.toString("dd.MM.yyyy") + " " + ": " + ui->Add_Task_lineEdit->text());
-    ui->New_Tasks_listWidget->addItem(item);
+
+    //эти 3 строки пример того как можно создать экземпляр Qlistwidget и потом использовать его как аргумент функции addItem
+    //проблема в том что в таком исполнении у меня не олучилось просто добавить некоторые записи в строку в виде текста в кавычках, хотя в returnpressed это работает
+   // QListWidgetItem *item = new QListWidgetItem();
+   // item->setText(Date.toString("dd.MM.yyyy") + " " + ": " + ui->Add_Task_lineEdit->text());
+   // ui->New_Tasks_listWidget->addItem(item );
+
+    ui->New_Tasks_listWidget->addItem(Date.toString("dd.MM.yyyy") + " " + ": " + ui->Add_Task_lineEdit->text() + " : " + ui->spinBox_deadline->text());
     ui->Add_Task_lineEdit->clear();
 }
 
 
 void MainWindow::on_Add_Task_lineEdit_returnPressed()
 {
-     ui->New_Tasks_listWidget->addItem(Date.toString("dd.MM.yyyy") + " " + ": " + ui->Add_Task_lineEdit->text());
+    ui->New_Tasks_listWidget->addItem(Date.toString("dd.MM.yyyy") + " " + ": " + ui->Add_Task_lineEdit->text() + " : " + ui->spinBox_deadline->text());
      ui->Add_Task_lineEdit->clear();
 }
 
@@ -102,7 +107,8 @@ void MainWindow::on_Delete_btn_clicked()
 {
      QListWidgetItem *item_created_to_show_on_deleted_list = new QListWidgetItem();
      QListWidgetItem *itemrow = ui->New_Tasks_listWidget->takeItem(ui->New_Tasks_listWidget->currentRow());
-     item_created_to_show_on_deleted_list->setText(Date.toString("dd.MM.yyyy") + " " + ": " + itemrow->text());
+     Date = Date.currentDate();
+     item_created_to_show_on_deleted_list->setText("Deleted " + Date.toString("dd.MM.yyyy") + " " + "Added: " + itemrow->text());
      ui->Deleted_Tasks_listWidget->addItem(item_created_to_show_on_deleted_list);
 
      delete itemrow;
@@ -132,4 +138,17 @@ void MainWindow::slot_for_copy_del_note(QString msg)
 
 
      }
+
+
+void MainWindow::on_pushButton_Repeat_clicked()
+{
+     QListWidgetItem *itemfrom = ui->Deleted_Tasks_listWidget->item(ui->Deleted_Tasks_listWidget->currentRow());
+     QListWidgetItem *itemto = new QListWidgetItem();
+     Date = Date.currentDate();
+     itemto->setText(Date.toString("dd.MM.yyyy") + " " + ": " + itemfrom->text());
+     ui->New_Tasks_listWidget->addItem(itemto);
+    //тут я нормально переношу текст, но текст совершенно не верный, нужно редактировать листвиджеты добавляя столбцы под дату и текст, см конспект
+
+     delete itemfrom;
+}
 

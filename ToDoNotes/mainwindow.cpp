@@ -93,6 +93,15 @@ void MainWindow::on_Add_Task_btn_clicked()
 
     ui->New_Tasks_listWidget->addItem(Date.toString("dd.MM.yyyy") + " " + ": " + ui->Add_Task_lineEdit->text() + " : " + ui->spinBox_deadline->text());
     ui->Add_Task_lineEdit->clear();
+
+
+    ui->tableWidget_new_tasks->insertRow(0);
+    QTableWidgetItem *dateitem = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
+    QTableWidgetItem *taskitem = new QTableWidgetItem();
+   // QTableWidgetItem *deadline = new QTableWidgetItem("jjjjjjjjjj");
+
+    ui->tableWidget_new_tasks->setItem(0,0,dateitem);
+    ui->tableWidget_new_tasks->setItem(0,1,taskitem);
 }
 
 

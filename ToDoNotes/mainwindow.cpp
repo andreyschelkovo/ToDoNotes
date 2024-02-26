@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lineEdit_price->setToolTip(tr("Here you shoul write a price of securuties which you want to buy. It will be saved"));
     ui->spinBox_count_of_securities->setToolTip(tr("Here you should choose count of securities with exactly price"));
     //Home Tasks
-    ui->Add_Task_lineEdit->setToolTip(tr("Write your task"));
+    ui->lineEdit_Add_Task->setToolTip(tr("Write your task"));
     ui->New_Tasks_listWidget->setToolTip(tr("All unfulfilled tasks with added date and deadlines"));
     ui->Done_Tasks_listWidget->setToolTip(tr("All completed tasks with completed date of completion "));
     ui->Deleted_Tasks_listWidget->setToolTip(tr("All deleted tasks with description why it was deleted"));
@@ -91,24 +91,27 @@ void MainWindow::on_Add_Task_btn_clicked()
    // item->setText(Date.toString("dd.MM.yyyy") + " " + ": " + ui->Add_Task_lineEdit->text());
    // ui->New_Tasks_listWidget->addItem(item );
 
-    ui->New_Tasks_listWidget->addItem(Date.toString("dd.MM.yyyy") + " " + ": " + ui->Add_Task_lineEdit->text() + " : " + ui->spinBox_deadline->text());
-    ui->Add_Task_lineEdit->clear();
+    ui->New_Tasks_listWidget->addItem(Date.toString("dd.MM.yyyy") + " " + ": " + ui->lineEdit_Add_Task->text() + " : " + ui->spinBox_deadline->text());
+
 
 
     ui->tableWidget_new_tasks->insertRow(0);
     QTableWidgetItem *dateitem = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
-    QTableWidgetItem *taskitem = new QTableWidgetItem();
-   // QTableWidgetItem *deadline = new QTableWidgetItem("jjjjjjjjjj");
-
+    QTableWidgetItem *taskitem = new QTableWidgetItem(ui->lineEdit_Add_Task->text());
+    QTableWidgetItem *deadlineitem = new QTableWidgetItem (ui->spinBox_deadline->text());
     ui->tableWidget_new_tasks->setItem(0,0,dateitem);
     ui->tableWidget_new_tasks->setItem(0,1,taskitem);
+    ui->tableWidget_new_tasks->setItem(0,2,deadlineitem);
+
+    ui->lineEdit_Add_Task->clear();
+    ui->spinBox_deadline->clear();
 }
 
 
 void MainWindow::on_Add_Task_lineEdit_returnPressed()
 {
-    ui->New_Tasks_listWidget->addItem(Date.toString("dd.MM.yyyy") + " " + ": " + ui->Add_Task_lineEdit->text() + " : " + ui->spinBox_deadline->text());
-     ui->Add_Task_lineEdit->clear();
+    ui->New_Tasks_listWidget->addItem(Date.toString("dd.MM.yyyy") + " " + ": " + ui->lineEdit_Add_Task->text() + " : " + ui->spinBox_deadline->text());
+     ui->lineEdit_Add_Task->clear();
 }
 
 

@@ -43,7 +43,7 @@
        <string>Add Task</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="Add_Task_lineEdit">
+     <widget class="QLineEdit" name="lineEdit_Add_Task">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -158,7 +158,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLabel" name="Deleted_Tasks_label">
+     <widget class="QLabel" name="label_Deleted_Tasks">
       <property name="geometry">
        <rect>
         <x>90</x>

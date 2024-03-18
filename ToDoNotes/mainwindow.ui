@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab_1">
      <attribute name="title">
@@ -270,6 +270,144 @@
      <attribute name="title">
       <string>Books</string>
      </attribute>
+     <widget class="QTableWidget" name="tableWidget_finished_books_list">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>30</y>
+        <width>601</width>
+        <height>192</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Name</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Autor</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Type</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Started</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Finished</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>ReadTime</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_books_audio">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>30</y>
+        <width>91</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Audio</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_books_text">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>50</y>
+        <width>91</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Text</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_books_finishedList">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>0</y>
+        <width>49</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Finished</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_booksbook_name">
+      <property name="geometry">
+       <rect>
+        <x>700</x>
+        <y>30</y>
+        <width>271</width>
+        <height>24</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_books_bookname">
+      <property name="geometry">
+       <rect>
+        <x>700</x>
+        <y>10</y>
+        <width>71</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Book name</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_books_autorname">
+      <property name="geometry">
+       <rect>
+        <x>700</x>
+        <y>60</y>
+        <width>81</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Autor's name</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_books_autors_name">
+      <property name="geometry">
+       <rect>
+        <x>700</x>
+        <y>80</y>
+        <width>271</width>
+        <height>24</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>100</y>
+        <width>91</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Wishlist</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab">
      <attribute name="title">

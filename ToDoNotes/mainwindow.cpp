@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->New_Tasks_listWidget->setToolTip(tr("All unfulfilled tasks with added date and deadlines"));
     ui->Done_Tasks_listWidget->setToolTip(tr("All completed tasks with completed date of completion "));
     ui->Deleted_Tasks_listWidget->setToolTip(tr("All deleted tasks with description why it was deleted"));
+    ui->tableWidget_new_tasks->setToolTip(tr("All unfulfilled tasks with added date and deadlines"));
 
 
 }

@@ -21,8 +21,16 @@ MainWindow::MainWindow(QWidget *parent)
     ui->Done_Tasks_listWidget->setToolTip(tr("All completed tasks with completed date of completion "));
     ui->Deleted_Tasks_listWidget->setToolTip(tr("All deleted tasks with description why it was deleted"));
     ui->tableWidget_new_tasks->setToolTip(tr("All unfulfilled tasks with added date and deadlines"));
-
-
+    //Books
+    ui->tableWidget_books_finished_list->setToolTip(tr("Here you can see all books which you already read"));
+    ui->tableWidget_books_wishlist->setToolTip(tr("Here you can see all books what you want to read"));
+    ui->lineEdit_books_book_name->setToolTip(tr("Write the name of the book here"));
+    ui->lineEdit_books_autors_name->setToolTip(tr("Write autor's name if you want"));
+    ui->pushButton_books_addnewbook->setToolTip(tr("Press me to remember your choice"));
+    ui->radioButton_books_audio->setToolTip(tr("Choose a type of book if you remember how you knew it"));
+    ui->radioButton_books_text->setToolTip(tr("Choose a type of book if you remember how you knew it"));
+    ui->radioButton_books_fiished->setToolTip(tr("Choose do you want to read this book or you already read it"));
+    ui->radioButton_books_wishlist->setToolTip(tr("Choose do you want to read this book or you already read it"));
 }
 
 MainWindow::~MainWindow()
@@ -163,5 +171,34 @@ void MainWindow::on_pushButton_Repeat_clicked()
     //тут я нормально переношу текст, но текст совершенно не верный, нужно редактировать листвиджеты добавляя столбцы под дату и текст, см конспект
 
      delete itemfrom;
+}
+
+
+void MainWindow::on_pushButton_books_addnewbook_clicked()
+{
+     if(ui->radioButton_books_wishlist->isChecked()==true){
+         ui->tableWidget_books_wishlist->insertRow(0);
+         QTableWidgetItem *bookname = new QTableWidgetItem(ui->lineEdit_books_book_name->text());
+         QTableWidgetItem *autorname = new QTableWidgetItem(ui->lineEdit_books_autors_name->text());
+         ui->tableWidget_books_wishlist->setItem(0,0,bookname);
+         ui->tableWidget_books_wishlist->setItem(0,1,autorname);
+
+     }else if (ui->radioButton_books_fiished->isChecked()==true){
+         ui->tableWidget_books_finished_list->insertRow(0);
+         QTableWidgetItem *bookname = new QTableWidgetItem(ui->lineEdit_books_book_name->text());
+         QTableWidgetItem *autorname = new QTableWidgetItem(ui->lineEdit_books_autors_name->text());
+         QTableWidgetItem *dateitem = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
+         ui->tableWidget_books_finished_list->setItem(0,0,bookname);
+         ui->tableWidget_books_finished_list->setItem(0,1,autorname);
+         ui->tableWidget_books_finished_list->setItem(0,3,dateitem);
+     }
+     if(ui->radioButton_books_audio->isChecked()==true){
+         QTableWidgetItem *audiomark = new QTableWidgetItem("audio");
+         ui->tableWidget_books_finished_list->setItem(0,2,audiomark);
+     }else if(ui->radioButton_books_text->isChecked()==true){
+         QTableWidgetItem *textmark = new QTableWidgetItem ("Text");
+         ui->tableWidget_books_finished_list->setItem(0,2,textmark);
+     }
+
 }
 

@@ -42,6 +42,8 @@ private slots:
 
     void on_pushButton_Repeat_clicked();
 
+    void on_pushButton_books_addnewbook_clicked();
+
 private:
     Ui::MainWindow *ui;
     QTreeWidgetItem *rootnamecompany;

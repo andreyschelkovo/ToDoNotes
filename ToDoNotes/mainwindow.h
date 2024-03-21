@@ -8,6 +8,7 @@
 #include <QSpinBox>
 #include <QListWidget>
 #include <deleted_description_form.h>
+#include <QMessageBox>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE

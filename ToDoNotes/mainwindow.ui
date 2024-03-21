@@ -275,7 +275,7 @@
        <rect>
         <x>0</x>
         <y>30</y>
-        <width>601</width>
+        <width>621</width>
         <height>192</height>
        </rect>
       </property>
@@ -309,32 +309,6 @@
         <string>ReadTime</string>
        </property>
       </column>
-     </widget>
-     <widget class="QRadioButton" name="radioButton_books_audio">
-      <property name="geometry">
-       <rect>
-        <x>700</x>
-        <y>110</y>
-        <width>91</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Audio</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButton_books_text">
-      <property name="geometry">
-       <rect>
-        <x>760</x>
-        <y>110</y>
-        <width>51</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Text</string>
-      </property>
      </widget>
      <widget class="QLabel" name="label_books_finishedList">
       <property name="geometry">
@@ -400,7 +374,7 @@
        <rect>
         <x>0</x>
         <y>270</y>
-        <width>601</width>
+        <width>621</width>
         <height>192</height>
        </rect>
       </property>
@@ -412,6 +386,11 @@
       <column>
        <property name="text">
         <string>Autor</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Reason</string>
        </property>
       </column>
      </widget>
@@ -465,6 +444,32 @@
       </property>
       <property name="text">
        <string>Add New Book</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_books_audio">
+      <property name="geometry">
+       <rect>
+        <x>700</x>
+        <y>110</y>
+        <width>51</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Audio</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_books_text">
+      <property name="geometry">
+       <rect>
+        <x>760</x>
+        <y>110</y>
+        <width>41</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Text</string>
       </property>
      </widget>
     </widget>

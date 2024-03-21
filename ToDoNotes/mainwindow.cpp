@@ -27,8 +27,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lineEdit_books_book_name->setToolTip(tr("Write the name of the book here"));
     ui->lineEdit_books_autors_name->setToolTip(tr("Write autor's name if you want"));
     ui->pushButton_books_addnewbook->setToolTip(tr("Press me to remember your choice"));
-    ui->radioButton_books_audio->setToolTip(tr("Choose a type of book if you remember how you knew it"));
-    ui->radioButton_books_text->setToolTip(tr("Choose a type of book if you remember how you knew it"));
+    ui->checkBox_books_audio->setToolTip(tr("Choose a type of book if you remember how you knew it"));
+    ui->checkBox_books_text->setToolTip(tr("Choose a type of book if you remember how you knew it"));
     ui->radioButton_books_fiished->setToolTip(tr("Choose do you want to read this book or you already read it"));
     ui->radioButton_books_wishlist->setToolTip(tr("Choose do you want to read this book or you already read it"));
 }
@@ -40,7 +40,7 @@ MainWindow::~MainWindow()
 
 
 //////////////////////////////Secirities
-///
+///============================================================================================================================================
 void MainWindow::on_Add_New_btn_clicked()
 {
     this->rootnamecompany = new QTreeWidgetItem(ui->treeWidget);
@@ -87,7 +87,7 @@ void MainWindow::on_lineEdit_company_returnPressed()
     ui->lineEdit_company->clear();
 }
 
-////////////////////////Home Tasks
+////////////////////////Home Tasks=====================================================================================================================
 ///
 ///
 void MainWindow::on_Add_Task_btn_clicked()
@@ -173,32 +173,43 @@ void MainWindow::on_pushButton_Repeat_clicked()
      delete itemfrom;
 }
 
-
+/////////Books==================================================================================================================================================
 void MainWindow::on_pushButton_books_addnewbook_clicked()
 {
-     if(ui->radioButton_books_wishlist->isChecked()==true){
-         ui->tableWidget_books_wishlist->insertRow(0);
-         QTableWidgetItem *bookname = new QTableWidgetItem(ui->lineEdit_books_book_name->text());
-         QTableWidgetItem *autorname = new QTableWidgetItem(ui->lineEdit_books_autors_name->text());
-         ui->tableWidget_books_wishlist->setItem(0,0,bookname);
-         ui->tableWidget_books_wishlist->setItem(0,1,autorname);
+     if ((ui->checkBox_books_audio->isChecked()==true)&&(ui->checkBox_books_text->isChecked()==true)){
+         QMessageBox::warning(this,tr("DoubleType Error"),tr("You have to choose only one type of the book, but probably you try to chooce both"));
 
-     }else if (ui->radioButton_books_fiished->isChecked()==true){
-         ui->tableWidget_books_finished_list->insertRow(0);
-         QTableWidgetItem *bookname = new QTableWidgetItem(ui->lineEdit_books_book_name->text());
-         QTableWidgetItem *autorname = new QTableWidgetItem(ui->lineEdit_books_autors_name->text());
-         QTableWidgetItem *dateitem = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
-         ui->tableWidget_books_finished_list->setItem(0,0,bookname);
-         ui->tableWidget_books_finished_list->setItem(0,1,autorname);
-         ui->tableWidget_books_finished_list->setItem(0,3,dateitem);
      }
-     if(ui->radioButton_books_audio->isChecked()==true){
-         QTableWidgetItem *audiomark = new QTableWidgetItem("audio");
-         ui->tableWidget_books_finished_list->setItem(0,2,audiomark);
-     }else if(ui->radioButton_books_text->isChecked()==true){
-         QTableWidgetItem *textmark = new QTableWidgetItem ("Text");
-         ui->tableWidget_books_finished_list->setItem(0,2,textmark);
+     else if ((ui->checkBox_books_audio->isChecked()==false)&&(ui->checkBox_books_text->isChecked()==false)&&
+         (ui->radioButton_books_fiished->isChecked()==true)){
+         QMessageBox::warning(this,tr("None Type Error"),tr("You have to choose at least one type of the book, but probably you chooce no one"));
+
      }
+     else {
+         if(ui->radioButton_books_wishlist->isChecked()==true){
+             ui->tableWidget_books_wishlist->insertRow(0);
+             QTableWidgetItem *bookname = new QTableWidgetItem(ui->lineEdit_books_book_name->text());
+             QTableWidgetItem *autorname = new QTableWidgetItem(ui->lineEdit_books_autors_name->text());
+             ui->tableWidget_books_wishlist->setItem(0,0,bookname);
+             ui->tableWidget_books_wishlist->setItem(0,1,autorname);
+
+         }else if (ui->radioButton_books_fiished->isChecked()==true){
+             ui->tableWidget_books_finished_list->insertRow(0);
+             QTableWidgetItem *bookname = new QTableWidgetItem(ui->lineEdit_books_book_name->text());
+             QTableWidgetItem *autorname = new QTableWidgetItem(ui->lineEdit_books_autors_name->text());
+             QTableWidgetItem *dateitem = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
+             ui->tableWidget_books_finished_list->setItem(0,0,bookname);
+             ui->tableWidget_books_finished_list->setItem(0,1,autorname);
+             ui->tableWidget_books_finished_list->setItem(0,3,dateitem);
+         }
+         if(ui->checkBox_books_audio->isChecked()==true){
+             QTableWidgetItem *audiomark = new QTableWidgetItem("audio");
+             ui->tableWidget_books_finished_list->setItem(0,2,audiomark);
+         }else if(ui->checkBox_books_text->isChecked()==true){
+             QTableWidgetItem *textmark = new QTableWidgetItem ("Text");
+             ui->tableWidget_books_finished_list->setItem(0,2,textmark);
+         }
+     }///
 
 }
 

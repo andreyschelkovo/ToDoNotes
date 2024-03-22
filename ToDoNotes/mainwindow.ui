@@ -472,6 +472,29 @@
        <string>Text</string>
       </property>
      </widget>
+     <widget class="QTextEdit" name="textEdit_example_of_reason">
+      <property name="geometry">
+       <rect>
+        <x>683</x>
+        <y>359</y>
+        <width>251</width>
+        <height>201</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_example_of_reason">
+      <property name="geometry">
+       <rect>
+        <x>750</x>
+        <y>340</y>
+        <width>131</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Example of reason</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab">
      <attribute name="title">

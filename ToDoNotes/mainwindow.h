@@ -8,6 +8,7 @@
 #include <QSpinBox>
 #include <QListWidget>
 #include <deleted_description_form.h>
+#include <books_wishlist_reason_text.h>
 #include <QMessageBox>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -50,10 +51,12 @@ private:
     QTreeWidgetItem *rootnamecompany;
     QDate Date;
     Deleted_description_form *deldescrform;
+    Books_wishlist_reason_text *booksreasontext;
 
 public slots:
 
     void slot_for_copy_del_note(QString msg);
+    void slot_for_books_reason_description(QString msg);
 
 
 

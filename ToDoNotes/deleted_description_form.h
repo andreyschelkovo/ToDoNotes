@@ -14,7 +14,6 @@ class Deleted_description_form : public QWidget
 public:
     explicit Deleted_description_form(QWidget *parent = nullptr);
     ~Deleted_description_form();
-
 signals:
     void signal_for_del_note(QString msg);
 

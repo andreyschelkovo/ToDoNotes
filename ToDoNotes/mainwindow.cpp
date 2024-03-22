@@ -8,7 +8,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     deldescrform = new Deleted_description_form();
+    booksreasontext = new Books_wishlist_reason_text();
     connect(deldescrform,&Deleted_description_form::signal_for_del_note,this,&MainWindow::slot_for_copy_del_note);
+    connect(booksreasontext,&Books_wishlist_reason_text::signal_for_books_reason_description,this,&MainWindow::slot_for_books_reason_description);
+
     Date = Date.currentDate();
     //securities
     ui->lineEdit_company->setToolTip(tr("Here you should write the company name if you want to buy some their securities"));
@@ -31,6 +34,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->checkBox_books_text->setToolTip(tr("Choose a type of book if you remember how you knew it"));
     ui->radioButton_books_fiished->setToolTip(tr("Choose do you want to read this book or you already read it"));
     ui->radioButton_books_wishlist->setToolTip(tr("Choose do you want to read this book or you already read it"));
+
+    ui->textEdit_example_of_reason->setToolTip(tr("This is just an example of work. This message should be send on the server or DB and it should connect with the particular book in "
+                                                  "wish list"));
+    ui->label_example_of_reason->setToolTip(tr("just label of that example"));
 }
 
 MainWindow::~MainWindow()
@@ -161,6 +168,8 @@ void MainWindow::slot_for_copy_del_note(QString msg)
      }
 
 
+
+
 void MainWindow::on_pushButton_Repeat_clicked()
 {
      QListWidgetItem *itemfrom = ui->Deleted_Tasks_listWidget->item(ui->Deleted_Tasks_listWidget->currentRow());
@@ -192,6 +201,7 @@ void MainWindow::on_pushButton_books_addnewbook_clicked()
              QTableWidgetItem *autorname = new QTableWidgetItem(ui->lineEdit_books_autors_name->text());
              ui->tableWidget_books_wishlist->setItem(0,0,bookname);
              ui->tableWidget_books_wishlist->setItem(0,1,autorname);
+             booksreasontext->show();
 
          }else if (ui->radioButton_books_fiished->isChecked()==true){
              ui->tableWidget_books_finished_list->insertRow(0);
@@ -210,6 +220,15 @@ void MainWindow::on_pushButton_books_addnewbook_clicked()
              ui->tableWidget_books_finished_list->setItem(0,2,textmark);
          }
      }///
+
+}
+
+void MainWindow::slot_for_books_reason_description(QString msg)
+{
+     ui->textEdit_example_of_reason->setText(msg);
+
+     QTableWidgetItem *reason = new QTableWidgetItem(msg);
+     ui->tableWidget_books_wishlist->setItem(0,2,reason);
 
 }
 

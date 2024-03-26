@@ -232,3 +232,25 @@ void MainWindow::slot_for_books_reason_description(QString msg)
 
 }
 
+
+void MainWindow::on_pushButton_books_updateReadTime_clicked()
+{
+     int rowcountbooks = ui->tableWidget_books_finished_list->rowCount();
+
+     if (rowcountbooks > 0){
+         for(int i = 0; i < rowcountbooks; i++ ){
+             QTableWidgetItem  *currentwidgetitem = ui->tableWidget_books_finished_list->item(i,4);
+             if (currentwidgetitem != nullptr){
+                 //вычисляем дату и суем в нужную ячейку
+                 QTableWidgetItem *textmark2 = new QTableWidgetItem ("Updated");//промто ради теста
+                 ui->tableWidget_books_finished_list->setItem(i,5,textmark2);
+             }
+             delete currentwidgetitem;
+         }
+
+     }
+     else {
+        //варнинг окно про пустую таблицу
+     }
+}
+

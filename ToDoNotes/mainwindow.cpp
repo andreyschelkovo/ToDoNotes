@@ -240,12 +240,15 @@ void MainWindow::on_pushButton_books_updateReadTime_clicked()
      if (rowcountbooks > 0){
          for(int i = 0; i < rowcountbooks; i++ ){
              QTableWidgetItem  *currentwidgetitem = ui->tableWidget_books_finished_list->item(i,4);
+             QDate start_read_Date =QDate::fromString( ui->tableWidget_books_finished_list->item(i,3)->text());
+             QDate end_read_date = QDate::fromString((currentwidgetitem->text()));
              if (currentwidgetitem != nullptr){
                  //вычисляем дату и суем в нужную ячейку
-                 QTableWidgetItem *textmark2 = new QTableWidgetItem ("Updated");//промто ради теста
+                 int count_read_days = start_read_Date.daysTo(end_read_date);
+                 QTableWidgetItem *textmark2 = new QTableWidgetItem (count_read_days);//промто ради теста
                  ui->tableWidget_books_finished_list->setItem(i,5,textmark2);
              }
-             delete currentwidgetitem;
+             //delete currentwidgetitem;
          }
 
      }

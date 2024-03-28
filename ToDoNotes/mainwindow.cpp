@@ -239,14 +239,15 @@ void MainWindow::on_pushButton_books_updateReadTime_clicked()
 
      if (rowcountbooks > 0){
          for(int i = 0; i < rowcountbooks; i++ ){
-             QTableWidgetItem  *currentwidgetitem = ui->tableWidget_books_finished_list->item(i,4);
-             QDate start_read_Date =QDate::fromString( ui->tableWidget_books_finished_list->item(i,3)->text());
-             QDate end_read_date = QDate::fromString((currentwidgetitem->text()));
-             if (currentwidgetitem != nullptr){
+             QTableWidgetItem  *currentwidgetitem = ui->tableWidget_books_finished_list->item(i,4);//создаю итемс нужной для проверки ячейкой
+             QDate start_read_Date =QDate::fromString( ui->tableWidget_books_finished_list->item(i,3)->text(),"dd.MM.yyyy");//дата нчала чтения
+             QDate end_read_date = QDate::fromString((currentwidgetitem->text()),"dd.MM.yyyy");//дата окончания чтения
+             if (currentwidgetitem != nullptr){//проверка на наличие даты окончания чтения, известна л она вообще
                  //вычисляем дату и суем в нужную ячейку
-                 int count_read_days = start_read_Date.daysTo(end_read_date);
-                 QTableWidgetItem *textmark2 = new QTableWidgetItem (count_read_days);//промто ради теста
-                 ui->tableWidget_books_finished_list->setItem(i,5,textmark2);
+                 int count_read_days = start_read_Date.daysTo(end_read_date);//ф-я подсчёта дней между первой датой и второй
+                 QTableWidgetItem *textmark2 = new QTableWidgetItem ();
+                 textmark2->setData(Qt::DisplayRole,QVariant(count_read_days));//не до конца понимаю что значат аргументы
+                 ui->tableWidget_books_finished_list->setItem(i,5,textmark2);//отобраю подсчёт
              }
              //delete currentwidgetitem;
          }

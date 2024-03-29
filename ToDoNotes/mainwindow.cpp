@@ -248,6 +248,7 @@ void MainWindow::on_pushButton_books_updateReadTime_clicked()
                  QTableWidgetItem *textmark2 = new QTableWidgetItem ();
                  textmark2->setData(Qt::DisplayRole,QVariant(count_read_days));//не до конца понимаю что значат аргументы
                  ui->tableWidget_books_finished_list->setItem(i,5,textmark2);//отобраю подсчёт
+
              }
              //delete currentwidgetitem;
          }

@@ -20,10 +20,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->spinBox_count_of_securities->setToolTip(tr("Here you should choose count of securities with exactly price"));
     //Home Tasks
     ui->lineEdit_Add_Task->setToolTip(tr("Write your task"));
-    ui->New_Tasks_listWidget->setToolTip(tr("All unfulfilled tasks with added date and deadlines"));
-    ui->Done_Tasks_listWidget->setToolTip(tr("All completed tasks with completed date of completion "));
-    ui->Deleted_Tasks_listWidget->setToolTip(tr("All deleted tasks with description why it was deleted"));
-    ui->tableWidget_new_tasks->setToolTip(tr("All unfulfilled tasks with added date and deadlines"));
+
+    ui->tableWidget_home_tasks_new_tasks->setToolTip(tr("All unfulfilled tasks with added date and deadlines"));
     //Books
     ui->tableWidget_books_finished_list->setToolTip(tr("Here you can see all books which you already read"));
     ui->tableWidget_books_wishlist->setToolTip(tr("Here you can see all books what you want to read"));
@@ -99,47 +97,47 @@ void MainWindow::on_lineEdit_company_returnPressed()
 ///
 void MainWindow::on_Add_Task_btn_clicked()
 {
-     //ui->New_Tasks_listWidget->addItem(Date.toString("dd.MM.yyyy") + " " + ": " + ui->Add_Task_lineEdit->text());
-
-    //эти 3 строки пример того как можно создать экземпляр Qlistwidget и потом использовать его как аргумент функции addItem
-    //проблема в том что в таком исполнении у меня не олучилось просто добавить некоторые записи в строку в виде текста в кавычках, хотя в returnpressed это работает
-   // QListWidgetItem *item = new QListWidgetItem();
-   // item->setText(Date.toString("dd.MM.yyyy") + " " + ": " + ui->Add_Task_lineEdit->text());
-   // ui->New_Tasks_listWidget->addItem(item );
-
-    ui->New_Tasks_listWidget->addItem(Date.toString("dd.MM.yyyy") + " " + ": " + ui->lineEdit_Add_Task->text() + " : " + ui->spinBox_deadline->text());
 
 
 
-    ui->tableWidget_new_tasks->insertRow(0);
+    ui->tableWidget_home_tasks_new_tasks->insertRow(0);
     QTableWidgetItem *dateitem = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
     QTableWidgetItem *taskitem = new QTableWidgetItem(ui->lineEdit_Add_Task->text());
     QTableWidgetItem *deadlineitem = new QTableWidgetItem (ui->spinBox_deadline->text());
-    ui->tableWidget_new_tasks->setItem(0,0,dateitem);
-    ui->tableWidget_new_tasks->setItem(0,1,taskitem);
-    ui->tableWidget_new_tasks->setItem(0,2,deadlineitem);
+    ui->tableWidget_home_tasks_new_tasks->setItem(0,0,dateitem);
+    ui->tableWidget_home_tasks_new_tasks->setItem(0,1,taskitem);
+    ui->tableWidget_home_tasks_new_tasks->setItem(0,2,deadlineitem);
 
     ui->lineEdit_Add_Task->clear();
     ui->spinBox_deadline->clear();
 }
 
 
-void MainWindow::on_Add_Task_lineEdit_returnPressed()
+
+void MainWindow::on_lineEdit_Add_Task_returnPressed()
 {
-    ui->New_Tasks_listWidget->addItem(Date.toString("dd.MM.yyyy") + " " + ": " + ui->lineEdit_Add_Task->text() + " : " + ui->spinBox_deadline->text());
-     ui->lineEdit_Add_Task->clear();
+    ui->tableWidget_home_tasks_new_tasks->insertRow(0);
+    QTableWidgetItem *dateitem = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
+    QTableWidgetItem *taskitem = new QTableWidgetItem(ui->lineEdit_Add_Task->text());
+    QTableWidgetItem *deadlineitem = new QTableWidgetItem (ui->spinBox_deadline->text());
+    ui->tableWidget_home_tasks_new_tasks->setItem(0,0,dateitem);
+    ui->tableWidget_home_tasks_new_tasks->setItem(0,1,taskitem);
+    ui->tableWidget_home_tasks_new_tasks->setItem(0,2,deadlineitem);
+
+    ui->lineEdit_Add_Task->clear();
+    ui->spinBox_deadline->clear();
 }
 
 
 void MainWindow::on_Delete_btn_clicked()
 {
      QListWidgetItem *item_created_to_show_on_deleted_list = new QListWidgetItem();
-     QListWidgetItem *itemrow = ui->New_Tasks_listWidget->takeItem(ui->New_Tasks_listWidget->currentRow());
-     Date = Date.currentDate();
-     item_created_to_show_on_deleted_list->setText("Deleted " + Date.toString("dd.MM.yyyy") + " " + "Added: " + itemrow->text());
-     ui->Deleted_Tasks_listWidget->addItem(item_created_to_show_on_deleted_list);
 
-     delete itemrow;
+     Date = Date.currentDate();
+
+
+
+
 
      deldescrform->show();
 
@@ -148,15 +146,19 @@ void MainWindow::on_Delete_btn_clicked()
 
 void MainWindow::on_Done_btn_clicked()
      {
-     QListWidgetItem *itemfrom = ui->New_Tasks_listWidget->item(ui->New_Tasks_listWidget->currentRow());
-     QListWidgetItem *itemto = new QListWidgetItem();
-     Date = Date.currentDate();
-     itemto->setText(Date.toString("dd.MM.yyyy") + " " + ": " + itemfrom->text());
-     ui->Done_Tasks_listWidget->addItem(itemto);
-     itemto->setBackground(Qt::green);
-     delete itemfrom;
+     ui->tableWidget_home_tasks__done_tasks->insertRow(0);
+     int number_of_selected_row = ui->tableWidget_home_tasks_new_tasks->currentRow();
+     int selected_row_column_count = ui->tableWidget_home_tasks_new_tasks->columnCount();
+    // QTableWidget *transfer_item = transfer_item ->selectRow(number_of_selected_row);
 
+     for(int i = 0; i < selected_row_column_count; i++){
+         QTableWidgetItem *transfer_item = ui->tableWidget_home_tasks_new_tasks->item(number_of_selected_row,i);
+         ui->tableWidget_home_tasks__done_tasks->setItem(0,i,transfer_item->clone());
 
+     }
+    for
+
+     //itemto->setBackground(Qt::green);
 
      }
 
@@ -172,14 +174,14 @@ void MainWindow::slot_for_copy_del_note(QString msg)
 
 void MainWindow::on_pushButton_Repeat_clicked()
 {
-     QListWidgetItem *itemfrom = ui->Deleted_Tasks_listWidget->item(ui->Deleted_Tasks_listWidget->currentRow());
+
      QListWidgetItem *itemto = new QListWidgetItem();
      Date = Date.currentDate();
-     itemto->setText(Date.toString("dd.MM.yyyy") + " " + ": " + itemfrom->text());
-     ui->New_Tasks_listWidget->addItem(itemto);
+
+
     //тут я нормально переношу текст, но текст совершенно не верный, нужно редактировать листвиджеты добавляя столбцы под дату и текст, см конспект
 
-     delete itemfrom;
+
 }
 
 /////////Books==================================================================================================================================================
@@ -258,4 +260,7 @@ void MainWindow::on_pushButton_books_updateReadTime_clicked()
         //варнинг окно про пустую таблицу
      }
 }
+
+
+
 

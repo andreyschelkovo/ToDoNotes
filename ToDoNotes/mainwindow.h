@@ -36,8 +36,6 @@ private slots:
 
     void on_Add_Task_btn_clicked();
 
-    void on_Add_Task_lineEdit_returnPressed();
-
     void on_Delete_btn_clicked();
 
     void on_Done_btn_clicked();
@@ -47,6 +45,8 @@ private slots:
     void on_pushButton_books_addnewbook_clicked();
 
     void on_pushButton_books_updateReadTime_clicked();
+
+    void on_lineEdit_Add_Task_returnPressed();
 
 private:
     Ui::MainWindow *ui;

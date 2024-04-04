@@ -99,7 +99,10 @@ void MainWindow::on_Add_Task_btn_clicked()
 {
 
 
-
+    if ( ui->lineEdit_Add_Task->text().isEmpty()){
+    QMessageBox::warning(this,tr("Empty Task Error"),tr("You have to write smth into the field and only then press button"));
+    }
+    else {
     ui->tableWidget_home_tasks_new_tasks->insertRow(0);
     QTableWidgetItem *dateitem = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
     QTableWidgetItem *taskitem = new QTableWidgetItem(ui->lineEdit_Add_Task->text());
@@ -109,13 +112,18 @@ void MainWindow::on_Add_Task_btn_clicked()
     ui->tableWidget_home_tasks_new_tasks->setItem(0,2,deadlineitem);
 
     ui->lineEdit_Add_Task->clear();
-    ui->spinBox_deadline->clear();
+    ui->spinBox_deadline->setValue(0);
+    }
 }
 
 
 
 void MainWindow::on_lineEdit_Add_Task_returnPressed()
 {
+    if ( ui->lineEdit_Add_Task->text().isEmpty()){
+    QMessageBox::warning(this,tr("Empty Task Error"),tr("You have to write smth into the field and only then press button"));
+    }
+    else {
     ui->tableWidget_home_tasks_new_tasks->insertRow(0);
     QTableWidgetItem *dateitem = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
     QTableWidgetItem *taskitem = new QTableWidgetItem(ui->lineEdit_Add_Task->text());
@@ -125,21 +133,29 @@ void MainWindow::on_lineEdit_Add_Task_returnPressed()
     ui->tableWidget_home_tasks_new_tasks->setItem(0,2,deadlineitem);
 
     ui->lineEdit_Add_Task->clear();
-    ui->spinBox_deadline->clear();
+    ui->spinBox_deadline->setValue(0);
+    }
 }
 
 
 void MainWindow::on_Delete_btn_clicked()
 {
-     QListWidgetItem *item_created_to_show_on_deleted_list = new QListWidgetItem();
+    Date = Date.currentDate();
+    ui->tableWidge_home_tasks_deleted_tasks->insertRow(0);
+    int number_of_selected_row = ui->tableWidget_home_tasks_new_tasks->currentRow();
+    int selected_row_column_count = ui->tableWidget_home_tasks_new_tasks->columnCount();
+    QTableWidgetItem *wqwqerty = new QTableWidgetItem (Date.toString());
 
-     Date = Date.currentDate();
+    ui->tableWidge_home_tasks_deleted_tasks->setItem(0,0,wqwqerty);
+    for(int i = 1; i < selected_row_column_count; i++){
+    QTableWidgetItem *transfer_item = ui->tableWidget_home_tasks_new_tasks->item(number_of_selected_row,i);
+    ui->tableWidge_home_tasks_deleted_tasks->setItem(0,i,transfer_item->clone());
+    ui->tableWidge_home_tasks_deleted_tasks->item(0,i)->setBackground(Qt::red);
 
+    }
+    ui->tableWidget_home_tasks_new_tasks->removeRow(number_of_selected_row);
 
-
-
-
-     deldescrform->show();
+    deldescrform->show();
 
 }
 
@@ -149,14 +165,14 @@ void MainWindow::on_Done_btn_clicked()
      ui->tableWidget_home_tasks__done_tasks->insertRow(0);
      int number_of_selected_row = ui->tableWidget_home_tasks_new_tasks->currentRow();
      int selected_row_column_count = ui->tableWidget_home_tasks_new_tasks->columnCount();
-    // QTableWidget *transfer_item = transfer_item ->selectRow(number_of_selected_row);
+
 
      for(int i = 0; i < selected_row_column_count; i++){
          QTableWidgetItem *transfer_item = ui->tableWidget_home_tasks_new_tasks->item(number_of_selected_row,i);
          ui->tableWidget_home_tasks__done_tasks->setItem(0,i,transfer_item->clone());
-
+         ui->tableWidget_home_tasks__done_tasks->item(0,i)->setBackground(Qt::green);
      }
-    for
+
 
      //itemto->setBackground(Qt::green);
 

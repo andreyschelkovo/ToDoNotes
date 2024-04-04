@@ -144,9 +144,9 @@ void MainWindow::on_Delete_btn_clicked()
     ui->tableWidge_home_tasks_deleted_tasks->insertRow(0);
     int number_of_selected_row = ui->tableWidget_home_tasks_new_tasks->currentRow();
     int selected_row_column_count = ui->tableWidget_home_tasks_new_tasks->columnCount();
-    QTableWidgetItem *wqwqerty = new QTableWidgetItem (Date.toString());
+    QTableWidgetItem *delete_date = new QTableWidgetItem (Date.toString());
 
-    ui->tableWidge_home_tasks_deleted_tasks->setItem(0,0,wqwqerty);
+    ui->tableWidge_home_tasks_deleted_tasks->setItem(0,0,delete_date);
     for(int i = 1; i < selected_row_column_count; i++){
     QTableWidgetItem *transfer_item = ui->tableWidget_home_tasks_new_tasks->item(number_of_selected_row,i);
     ui->tableWidge_home_tasks_deleted_tasks->setItem(0,i,transfer_item->clone());
@@ -162,18 +162,20 @@ void MainWindow::on_Delete_btn_clicked()
 
 void MainWindow::on_Done_btn_clicked()
      {
+     Date = Date.currentDate();
      ui->tableWidget_home_tasks__done_tasks->insertRow(0);
      int number_of_selected_row = ui->tableWidget_home_tasks_new_tasks->currentRow();
      int selected_row_column_count = ui->tableWidget_home_tasks_new_tasks->columnCount();
+     QTableWidgetItem *done_date = new QTableWidgetItem (Date.toString());
 
-
-     for(int i = 0; i < selected_row_column_count; i++){
+     ui->tableWidget_home_tasks__done_tasks->setItem(0,0,done_date);
+     for(int i = 1; i < selected_row_column_count; i++){
          QTableWidgetItem *transfer_item = ui->tableWidget_home_tasks_new_tasks->item(number_of_selected_row,i);
          ui->tableWidget_home_tasks__done_tasks->setItem(0,i,transfer_item->clone());
          ui->tableWidget_home_tasks__done_tasks->item(0,i)->setBackground(Qt::green);
      }
 
-
+    ui->tableWidget_home_tasks_new_tasks->removeRow(number_of_selected_row);
      //itemto->setBackground(Qt::green);
 
      }

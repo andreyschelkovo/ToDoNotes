@@ -158,6 +158,24 @@ void MainWindow::on_Delete_btn_clicked()
     deldescrform->show();
 
 }
+void MainWindow::on_pushButton_Repeat_clicked()
+{
+    Date = Date.currentDate();
+    int number_of_selected_row = ui->tableWidge_home_tasks_deleted_tasks->currentRow();
+    QTableWidgetItem *repeate_date_item = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
+    QTableWidgetItem *repeate_deadline_item = new QTableWidgetItem (ui->spinBox_Repeat->text());
+    QTableWidgetItem *repeate_transfer_task = ui->tableWidge_home_tasks_deleted_tasks->item(number_of_selected_row,1);
+
+    ui->tableWidget_home_tasks_new_tasks->insertRow(0);
+
+    ui->tableWidget_home_tasks_new_tasks->setItem(0,0,repeate_date_item);
+    ui->tableWidget_home_tasks_new_tasks->setItem(0,1,repeate_transfer_task->clone());
+    ui->tableWidget_home_tasks_new_tasks->setItem(0,2,repeate_deadline_item);
+
+    ui->tableWidge_home_tasks_deleted_tasks->removeRow(number_of_selected_row);
+    ui->spinBox_Repeat->setValue(0);
+
+}
 
 
 void MainWindow::on_Done_btn_clicked()
@@ -190,17 +208,7 @@ void MainWindow::slot_for_copy_del_note(QString msg)
 
 
 
-void MainWindow::on_pushButton_Repeat_clicked()
-{
 
-     QListWidgetItem *itemto = new QListWidgetItem();
-     Date = Date.currentDate();
-
-
-    //тут я нормально переношу текст, но текст совершенно не верный, нужно редактировать листвиджеты добавляя столбцы под дату и текст, см конспект
-
-
-}
 
 /////////Books==================================================================================================================================================
 void MainWindow::on_pushButton_books_addnewbook_clicked()

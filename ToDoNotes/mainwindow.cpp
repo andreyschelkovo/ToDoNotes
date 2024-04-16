@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     deldescrform = new Deleted_description_form();
     booksreasontext = new Books_wishlist_reason_text();
+    books_fr_wh_form = new Books_From_where_Form();
+    connect(books_fr_wh_form,&Books_From_where_Form::signal_from_books_fr_wh_form,this,&MainWindow::slot_for_books_from_where_form);
     connect(deldescrform,&Deleted_description_form::signal_for_del_note,this,&MainWindow::slot_for_copy_del_note);
     connect(booksreasontext,&Books_wishlist_reason_text::signal_for_books_reason_description,this,&MainWindow::slot_for_books_reason_description);
 
@@ -44,7 +46,7 @@ MainWindow::~MainWindow()
 }
 
 
-//////////////////////////////Secirities
+//////////////////////////////Securities
 ///============================================================================================================================================
 void MainWindow::on_Add_New_btn_clicked()
 {
@@ -230,6 +232,8 @@ void MainWindow::on_pushButton_books_addnewbook_clicked()
              ui->tableWidget_books_wishlist->setItem(0,0,bookname);
              ui->tableWidget_books_wishlist->setItem(0,1,autorname);
              booksreasontext->show();
+             books_fr_wh_form->show();
+
 
          }else if (ui->radioButton_books_fiished->isChecked()==true){
              ui->tableWidget_books_finished_list->insertRow(0);
@@ -258,6 +262,12 @@ void MainWindow::slot_for_books_reason_description(QString msg)
      QTableWidgetItem *reason = new QTableWidgetItem(msg);
      ui->tableWidget_books_wishlist->setItem(0,2,reason);
 
+}
+
+void MainWindow::slot_for_books_from_where_form(QString msg)
+{
+     QTableWidgetItem *msg_from_where_form = new QTableWidgetItem(msg);
+     ui->tableWidget_books_wishlist->setItem(0,3,msg_from_where_form->clone());
 }
 
 

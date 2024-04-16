@@ -10,6 +10,7 @@
 #include <deleted_description_form.h>
 #include <books_wishlist_reason_text.h>
 #include <QMessageBox>
+#include <books_from_where_form.h>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -54,11 +55,14 @@ private:
     QDate Date;
     Deleted_description_form *deldescrform;
     Books_wishlist_reason_text *booksreasontext;
+    Books_From_where_Form *books_fr_wh_form;
+
 
 public slots:
 
     void slot_for_copy_del_note(QString msg);
     void slot_for_books_reason_description(QString msg);
+    void slot_for_books_from_where_form(QString msg);
 
 
 

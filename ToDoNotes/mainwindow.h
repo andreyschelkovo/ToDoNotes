@@ -11,6 +11,10 @@
 #include <books_wishlist_reason_text.h>
 #include <QMessageBox>
 #include <books_from_where_form.h>
+
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -48,6 +52,7 @@ private slots:
     void on_pushButton_books_updateReadTime_clicked();
 
     void on_lineEdit_Add_Task_returnPressed();
+   // void createTable();
 
 private:
     Ui::MainWindow *ui;

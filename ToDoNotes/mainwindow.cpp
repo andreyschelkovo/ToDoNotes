@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -115,6 +116,9 @@ void MainWindow::on_Add_Task_btn_clicked()
 
     ui->lineEdit_Add_Task->clear();
     ui->spinBox_deadline->setValue(0);
+
+
+    //createTable();
     }
 }
 
@@ -138,7 +142,16 @@ void MainWindow::on_lineEdit_Add_Task_returnPressed()
     ui->spinBox_deadline->setValue(0);
     }
 }
-
+///////////////////////db
+/*void MainWindow::createTable()
+{
+    {
+        QSqlQuery query;
+        query.prepare("CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL UNIQUE)");
+        query.exec();
+    }
+}*/
+/////////////////////////////////
 
 void MainWindow::on_Delete_btn_clicked()
 {

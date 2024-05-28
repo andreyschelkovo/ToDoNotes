@@ -18,7 +18,6 @@ SOURCES += \
 HEADERS += \
     books_from_where_form.h \
     books_wishlist_reason_text.h \
-    conection.h \
     deleted_description_form.h \
     mainwindow.h
 

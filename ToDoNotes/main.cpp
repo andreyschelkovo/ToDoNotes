@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     }
     else {
         QMessageBox::information(0,"Succesfully", "Connection complited!");
-        return true;
+        //return true; закоментил тк при закрытии месседж бокса закрывалось приложение
     }
 
 

@@ -52,7 +52,6 @@ private slots:
     void on_pushButton_books_updateReadTime_clicked();
 
     void on_lineEdit_Add_Task_returnPressed();
-   // void createTable();
 
 private:
     Ui::MainWindow *ui;

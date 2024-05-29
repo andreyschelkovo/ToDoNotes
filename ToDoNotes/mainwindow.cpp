@@ -118,8 +118,15 @@ void MainWindow::on_Add_Task_btn_clicked()
     ui->spinBox_deadline->setValue(0);
 
 
-    //createTable();
+    QSqlQuery query;
+
+    query.exec("CREATE TABLE IF NOT EXISTS my_table ("
+                  "id SERIAL PRIMARY KEY,"
+                  "name VARCHAR(50) NOT NULL,"
+                  "salary INTEGER NOT NULL)");
     }
+
+
 }
 
 
@@ -142,16 +149,9 @@ void MainWindow::on_lineEdit_Add_Task_returnPressed()
     ui->spinBox_deadline->setValue(0);
     }
 }
-///////////////////////db
-/*void MainWindow::createTable()
-{
-    {
-        QSqlQuery query;
-        query.prepare("CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL UNIQUE)");
-        query.exec();
-    }
-}*/
-/////////////////////////////////
+
+
+
 
 void MainWindow::on_Delete_btn_clicked()
 {

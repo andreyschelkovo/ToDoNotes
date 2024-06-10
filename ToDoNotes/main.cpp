@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
     db.setHostName("localhost");
     db.setPort(5432);
-    db.setDatabaseName("postgres");
+    db.setDatabaseName("postgres_from_qt");
     db.setUserName("postgres");
     db.setPassword("Dfrfk.r2017");
 

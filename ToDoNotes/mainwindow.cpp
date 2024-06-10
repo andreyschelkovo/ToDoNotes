@@ -119,11 +119,10 @@ void MainWindow::on_Add_Task_btn_clicked()
 
 
     QSqlQuery query;
-
-    query.exec("CREATE TABLE IF NOT EXISTS my_table ("
-                  "id SERIAL PRIMARY KEY,"
-                  "name VARCHAR(50) NOT NULL,"
-                  "salary INTEGER NOT NULL)");
+    //query.exec("CREATE TABLE table_name (column1 INT PRIMARY KEY, column2 TEXT)");
+    query.exec("CREATE TABLE New_Tasks123999999 (Date123 TEXT,Task VARCHAR(50) NOT NULL,DL INTEGER NOT NULL)");
+   // query.exec(
+   //     "INSERT INTO New_Tasks (column1,column2,column3) VALUES (dateitem,taskitem,deadlineitem);");
     }
 
 

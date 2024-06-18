@@ -18,7 +18,6 @@ int main(int argc, char *argv[])
 
     MainWindow w;
 
-    w.show();
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
     db.setHostName("localhost");
@@ -37,6 +36,10 @@ int main(int argc, char *argv[])
         QMessageBox::information(0,"Succesfully", "Connection complited!");
         //return true; закоментил тк при закрытии месседж бокса закрывалось приложение
     }
+
+    w.show();
+
+
 
 
     return a.exec();

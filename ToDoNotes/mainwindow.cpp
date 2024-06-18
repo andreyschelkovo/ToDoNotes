@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(deldescrform,&Deleted_description_form::signal_for_del_note,this,&MainWindow::slot_for_copy_del_note);
     connect(booksreasontext,&Books_wishlist_reason_text::signal_for_books_reason_description,this,&MainWindow::slot_for_books_reason_description);
 
+
+
     Date = Date.currentDate();
     //securities
     ui->lineEdit_company->setToolTip(tr("Here you should write the company name if you want to buy some their securities"));
@@ -321,4 +323,20 @@ void MainWindow::on_pushButton_books_updateReadTime_clicked()
 
 
 
+void MainWindow::on_pushButton_home_tasks_new_tasks_refresh_clicked()
+{
+    QSqlQuery query;
+    query.exec("SELECT * FROM New_Tasks");
+    while (query.next()){
+
+        ui->tableWidget_home_tasks_new_tasks->insertRow(0);
+        QTableWidgetItem *dateitem = new QTableWidgetItem(query.value(0).toString());
+        QTableWidgetItem *taskitem = new QTableWidgetItem(query.value(1).toString());
+        QTableWidgetItem *deadlineitem = new QTableWidgetItem (query.value(2).toString());
+        ui->tableWidget_home_tasks_new_tasks->setItem(0,0,dateitem);
+        ui->tableWidget_home_tasks_new_tasks->setItem(0,1,taskitem);
+        ui->tableWidget_home_tasks_new_tasks->setItem(0,2,deadlineitem);
+
+    }
+}
 

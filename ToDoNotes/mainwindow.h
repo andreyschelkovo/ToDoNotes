@@ -53,6 +53,8 @@ private slots:
 
     void on_lineEdit_Add_Task_returnPressed();
 
+    void on_pushButton_home_tasks_new_tasks_refresh_clicked();
+
 private:
     Ui::MainWindow *ui;
     QTreeWidgetItem *rootnamecompany;

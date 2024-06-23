@@ -103,7 +103,7 @@ void MainWindow::on_lineEdit_company_returnPressed()
 void MainWindow::on_Add_Task_btn_clicked()
 {
 
-
+    task_count++;
     if ( ui->lineEdit_Add_Task->text().isEmpty()){
     QMessageBox::warning(this,tr("Empty Task Error"),tr("You have to write smth into the field and only then press button"));
     }
@@ -121,18 +121,47 @@ void MainWindow::on_Add_Task_btn_clicked()
 
 
     QSqlQuery query;
-    //query.exec("CREATE TABLE table_name (column1 INT PRIMARY KEY, column2 TEXT)");
     query.exec("CREATE TABLE IF NOT EXISTS New_Tasks (Date_id integer PRIMARY KEY, Date TEXT,Task TEXT,DL TEXT)");
-    //query.prepare("INSERT INTO people (name) VALUES ('John Doe'), ('Jane Doe'), ('Bob Smith')");
+    query.prepare("INSERT INTO New_Tasks (Date_id ,Date, Task, DL)"
+                  " VALUES (:Date_id, :Date, :Task, :DL)");
+
+    if(!query.prepare("INSERT INTO New_Tasks (Date_id ,Date, Task, DL) "
+                       "VALUES (:Date_id, :Date, :Task, :DL)")){
+        qDebug() << query.lastError().text();
+    }
+
+    QString dateitemvalue = dateitem->text();
+    QString taskitemvalue = taskitem->text();
+    QString deadlineitemvalue = deadlineitem->text();
+    query.bindValue(":Date_id", task_count);
+    query.bindValue(":Date", dateitemvalue);
+    query.bindValue(":Task", taskitemvalue);
+    query.bindValue(":DL", deadlineitemvalue);
+
+    if(!query.exec()){
+        qDebug() << query.lastError().text();
+    }else {
+        query.exec();
+    }
 
 
-   // query.prepare("INSERT INTO New_Tasks (Date) VALUES (:value)");
-    //query.bindValue(0,dateitem->text());
-    query.exec("INSERT INTO New_Tasks (Date_id,Date, Task, DL) "
-                    "VALUES ('0', '2021-09-23', 'smth', '65')");
+    /*
+    for (int i = 0; i< ui->tableWidget_home_tasks_new_tasks->rowCount(); i++ ){
+        query.bindValue(":Date_id", i);
+        for(int j = 0; j < ui->tableWidget_home_tasks_new_tasks->columnCount(); j++){
+            QTableWidgetItem* item_from_QT_to_db = ui->tableWidget_home_tasks_new_tasks->item(i,j);
+            if (item_from_QT_to_db->text().isEmpty()){
+                continue;
+            }else{
+                query.bindValue(":Date", dateitem->text());
+                query.bindValue(":Task", taskitem->text());
+                query.bindValue(":DL", deadlineitem->text());
+            }
 
-
-
+        }
+        query.exec();
+    }
+    */
 
 
     }

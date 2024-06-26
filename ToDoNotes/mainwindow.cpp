@@ -121,47 +121,30 @@ void MainWindow::on_Add_Task_btn_clicked()
 
 
     QSqlQuery query;
-    query.exec("CREATE TABLE IF NOT EXISTS New_Tasks (Date_id integer PRIMARY KEY, Date TEXT,Task TEXT,DL TEXT)");
-    query.prepare("INSERT INTO New_Tasks (Date_id ,Date, Task, DL)"
-                  " VALUES (:Date_id, :Date, :Task, :DL)");
 
-    if(!query.prepare("INSERT INTO New_Tasks (Date_id ,Date, Task, DL) "
-                       "VALUES (:Date_id, :Date, :Task, :DL)")){
+
+
+    if (!query.exec("CREATE TABLE IF NOT EXISTS New_Tasks (Date_id SERIAL PRIMARY KEY, Date TEXT,Task TEXT,DL TEXT)")){
         qDebug() << query.lastError().text();
     }
+
+
+    query.prepare("INSERT INTO New_Tasks (Date, Task, DL)"
+                  " VALUES (:Date, :Task, :DL)");
 
     QString dateitemvalue = dateitem->text();
     QString taskitemvalue = taskitem->text();
     QString deadlineitemvalue = deadlineitem->text();
-    query.bindValue(":Date_id", task_count);
+
     query.bindValue(":Date", dateitemvalue);
     query.bindValue(":Task", taskitemvalue);
     query.bindValue(":DL", deadlineitemvalue);
 
     if(!query.exec()){
         qDebug() << query.lastError().text();
-    }else {
-        query.exec();
     }
 
 
-    /*
-    for (int i = 0; i< ui->tableWidget_home_tasks_new_tasks->rowCount(); i++ ){
-        query.bindValue(":Date_id", i);
-        for(int j = 0; j < ui->tableWidget_home_tasks_new_tasks->columnCount(); j++){
-            QTableWidgetItem* item_from_QT_to_db = ui->tableWidget_home_tasks_new_tasks->item(i,j);
-            if (item_from_QT_to_db->text().isEmpty()){
-                continue;
-            }else{
-                query.bindValue(":Date", dateitem->text());
-                query.bindValue(":Task", taskitem->text());
-                query.bindValue(":DL", deadlineitem->text());
-            }
-
-        }
-        query.exec();
-    }
-    */
 
 
     }
@@ -195,9 +178,11 @@ void MainWindow::on_lineEdit_Add_Task_returnPressed()
 
 void MainWindow::on_Delete_btn_clicked()
 {
+    int id_from_row_which_have_to_be_removed = 0;
     Date = Date.currentDate();
     ui->tableWidge_home_tasks_deleted_tasks->insertRow(0);
     int number_of_selected_row = ui->tableWidget_home_tasks_new_tasks->currentRow();
+    id_from_row_which_have_to_be_removed = number_of_selected_row;
     int selected_row_column_count = ui->tableWidget_home_tasks_new_tasks->columnCount();
     QTableWidgetItem *delete_date = new QTableWidgetItem (Date.toString());
 
@@ -211,6 +196,35 @@ void MainWindow::on_Delete_btn_clicked()
     ui->tableWidget_home_tasks_new_tasks->removeRow(number_of_selected_row);
 
     deldescrform->show();
+
+    QSqlQuery query;
+    if (!query.exec("CREATE TABLE IF NOT EXISTS Deleted_Tasks (Date_id SERIAL PRIMARY KEY, Date TEXT,Task TEXT,DL TEXT)")){
+        qDebug() << query.lastError().text();
+    }
+
+    query.prepare("INSERT INTO Deleted_Tasks (Date, Task, DL)"
+                  " VALUES (:Date, :Task, :DL)");
+
+    QString dateitemvalue = Date.toString();
+
+    QString taskitemvalue = ui->tableWidget_home_tasks_new_tasks->item(number_of_selected_row,1)->text();
+    //QString deadlineitemvalue = deadlineitem->text(); копипаста, нет такого в этом блоке, просто заметка что это должно тут быть както организовано
+
+    query.bindValue(":Date", dateitemvalue);
+    query.bindValue(":Task", taskitemvalue);
+    query.bindValue(":DL", 0);
+
+    if(!query.exec()){
+        qDebug() << query.lastError().text();
+    }
+
+
+
+    query.prepare("DELETE FROM New_Tasks WHERE id = :id");
+    query.bindValue(":id",id_from_row_which_have_to_be_removed);
+    if(!query.exec()){
+        qDebug() << query.lastError().text();
+    }
 
 }
 void MainWindow::on_pushButton_Repeat_clicked()

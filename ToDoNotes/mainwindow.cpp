@@ -103,7 +103,7 @@ void MainWindow::on_lineEdit_company_returnPressed()
 void MainWindow::on_Add_Task_btn_clicked()
 {
 
-    task_count++;
+
     if ( ui->lineEdit_Add_Task->text().isEmpty()){
     QMessageBox::warning(this,tr("Empty Task Error"),tr("You have to write smth into the field and only then press button"));
     }
@@ -178,53 +178,65 @@ void MainWindow::on_lineEdit_Add_Task_returnPressed()
 
 void MainWindow::on_Delete_btn_clicked()
 {
+    bool wait = false;
     int id_from_row_which_have_to_be_removed = 0;
     Date = Date.currentDate();
-    ui->tableWidge_home_tasks_deleted_tasks->insertRow(0);
+
     int number_of_selected_row = ui->tableWidget_home_tasks_new_tasks->currentRow();
-    id_from_row_which_have_to_be_removed = number_of_selected_row;
-    int selected_row_column_count = ui->tableWidget_home_tasks_new_tasks->columnCount();
-    QTableWidgetItem *delete_date = new QTableWidgetItem (Date.toString());
-
-    ui->tableWidge_home_tasks_deleted_tasks->setItem(0,0,delete_date);
-    for(int i = 1; i < selected_row_column_count; i++){
-    QTableWidgetItem *transfer_item = ui->tableWidget_home_tasks_new_tasks->item(number_of_selected_row,i);
-    ui->tableWidge_home_tasks_deleted_tasks->setItem(0,i,transfer_item->clone());
-    ui->tableWidge_home_tasks_deleted_tasks->item(0,i)->setBackground(Qt::red);
-
+    if (number_of_selected_row == -1){
+        QMessageBox::warning(this,tr("Not choosen item for remove"),tr("You have to choose some field and only then press button"));
+        wait = true;
+    }else {
+        wait = false;
     }
-    ui->tableWidget_home_tasks_new_tasks->removeRow(number_of_selected_row);
+    if (!wait){
+        ui->tableWidge_home_tasks_deleted_tasks->insertRow(0);
+        id_from_row_which_have_to_be_removed = number_of_selected_row+1;
+        int selected_row_column_count = ui->tableWidget_home_tasks_new_tasks->columnCount();
+        QTableWidgetItem *delete_date = new QTableWidgetItem (Date.toString());
 
-    deldescrform->show();
+        ui->tableWidge_home_tasks_deleted_tasks->setItem(0,0,delete_date);
+        for(int i = 1; i < selected_row_column_count; i++){
+            QTableWidgetItem *transfer_item = ui->tableWidget_home_tasks_new_tasks->item(number_of_selected_row,i);
+            ui->tableWidge_home_tasks_deleted_tasks->setItem(0,i,transfer_item->clone());
+            ui->tableWidge_home_tasks_deleted_tasks->item(0,i)->setBackground(Qt::red);
 
-    QSqlQuery query;
-    if (!query.exec("CREATE TABLE IF NOT EXISTS Deleted_Tasks (Date_id SERIAL PRIMARY KEY, Date TEXT,Task TEXT,DL TEXT)")){
-        qDebug() << query.lastError().text();
+        }
+
+
+        deldescrform->show();
+
+        QSqlQuery query;
+        if (!query.exec("CREATE TABLE IF NOT EXISTS Deleted_Tasks (Date_id SERIAL PRIMARY KEY, Date TEXT,Task TEXT,DL TEXT)")){
+            qDebug() << query.lastError().text();
+        }
+
+        query.prepare("INSERT INTO Deleted_Tasks (Date, Task, DL)"
+                      " VALUES (:Date, :Task, :DL)");
+
+        QString dateitemvalue = Date.toString();
+
+        QString taskitemvalue = ui->tableWidget_home_tasks_new_tasks->item(number_of_selected_row,1)->text();
+        //QString deadlineitemvalue = deadlineitem->text(); копипаста, нет такого в этом блоке, просто заметка что это должно тут быть както организовано
+
+        query.bindValue(":Date", dateitemvalue);
+        query.bindValue(":Task", taskitemvalue);
+        query.bindValue(":DL", 0);
+
+        if(!query.exec()){
+            qDebug() << query.lastError().text();
+        }
+
+
+
+        query.prepare("DELETE FROM new_tasks WHERE date_id = :ID");
+        query.bindValue(":ID",id_from_row_which_have_to_be_removed);
+        if(!query.exec()){
+            qDebug() << query.lastError().text();
+        }
+        ui->tableWidget_home_tasks_new_tasks->removeRow(number_of_selected_row);
     }
 
-    query.prepare("INSERT INTO Deleted_Tasks (Date, Task, DL)"
-                  " VALUES (:Date, :Task, :DL)");
-
-    QString dateitemvalue = Date.toString();
-
-    QString taskitemvalue = ui->tableWidget_home_tasks_new_tasks->item(number_of_selected_row,1)->text();
-    //QString deadlineitemvalue = deadlineitem->text(); копипаста, нет такого в этом блоке, просто заметка что это должно тут быть както организовано
-
-    query.bindValue(":Date", dateitemvalue);
-    query.bindValue(":Task", taskitemvalue);
-    query.bindValue(":DL", 0);
-
-    if(!query.exec()){
-        qDebug() << query.lastError().text();
-    }
-
-
-
-    query.prepare("DELETE FROM New_Tasks WHERE id = :id");
-    query.bindValue(":id",id_from_row_which_have_to_be_removed);
-    if(!query.exec()){
-        qDebug() << query.lastError().text();
-    }
 
 }
 void MainWindow::on_pushButton_Repeat_clicked()
@@ -372,13 +384,18 @@ void MainWindow::on_pushButton_home_tasks_new_tasks_refresh_clicked()
     query.exec("SELECT * FROM New_Tasks");
     while (query.next()){
 
-        ui->tableWidget_home_tasks_new_tasks->insertRow(0);
-        QTableWidgetItem *dateitem = new QTableWidgetItem(query.value(0).toString());
-        QTableWidgetItem *taskitem = new QTableWidgetItem(query.value(1).toString());
-        QTableWidgetItem *deadlineitem = new QTableWidgetItem (query.value(2).toString());
-        ui->tableWidget_home_tasks_new_tasks->setItem(0,0,dateitem);
-        ui->tableWidget_home_tasks_new_tasks->setItem(0,1,taskitem);
-        ui->tableWidget_home_tasks_new_tasks->setItem(0,2,deadlineitem);
+        //ui->tableWidget_home_tasks_new_tasks->insertRow(0);// при таком варианте заполняется построчно в качало таблицы, результат- обратный порядок
+        int row_count = ui->tableWidget_home_tasks_new_tasks->rowCount();
+        ui->tableWidget_home_tasks_new_tasks->insertRow(row_count);
+
+        QTableWidgetItem *dateitem = new QTableWidgetItem(query.value(1).toString());
+        QTableWidgetItem *taskitem = new QTableWidgetItem(query.value(2).toString());
+        QTableWidgetItem *deadlineitem = new QTableWidgetItem (query.value(3).toString());
+
+
+        ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,0,dateitem);
+        ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,1,taskitem);
+        ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,2,deadlineitem);
 
     }
 }

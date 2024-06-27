@@ -62,7 +62,7 @@ private:
     Deleted_description_form *deldescrform;
     Books_wishlist_reason_text *booksreasontext;
     Books_From_where_Form *books_fr_wh_form;
-    int task_count = rand();
+
 
 public slots:
 

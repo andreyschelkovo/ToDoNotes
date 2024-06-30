@@ -1,6 +1,18 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+////////////////////////////////////functions////////////////////////////////////////////////////////////////////
+bool MainWindow::new_task_check_for_user(QString &table_name,QString &column1, QString &column2)
+{
+    QSqlQuery query_check;
 
+    if(!query_check.exec("SELECT * FROM '" + table_name + "' WHERE date = '" + column1 + "' AND task = '" + column2 + "'  ")){
+        qDebug() << query_check.lastError();
+    }
+    return query_check.size() > 0;
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -144,7 +156,10 @@ void MainWindow::on_Add_Task_btn_clicked()
         qDebug() << query.lastError().text();
     }
 
-
+    QString table = "New_Tasks";
+    if(MainWindow::new_task_check_for_user(table,dateitemvalue,taskitemvalue)){
+        ui->tableWidget_home_tasks_new_tasks->item(0,0)->setBackground(Qt::green);
+    }
 
 
     }
@@ -288,6 +303,29 @@ void MainWindow::slot_for_copy_del_note(QString msg)
 
 
 
+void MainWindow::on_pushButton_home_tasks_new_tasks_refresh_clicked()
+{
+         QSqlQuery query;
+         query.exec("SELECT * FROM New_Tasks");
+         while (query.next()){
+
+             //ui->tableWidget_home_tasks_new_tasks->insertRow(0);// при таком варианте заполняется построчно в качало таблицы, результат- обратный порядок
+             int row_count = ui->tableWidget_home_tasks_new_tasks->rowCount();
+             ui->tableWidget_home_tasks_new_tasks->insertRow(row_count);
+
+             QTableWidgetItem *dateitem = new QTableWidgetItem(query.value(1).toString());
+             QTableWidgetItem *taskitem = new QTableWidgetItem(query.value(2).toString());
+             QTableWidgetItem *deadlineitem = new QTableWidgetItem (query.value(3).toString());
+
+
+             ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,0,dateitem);
+             ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,1,taskitem);
+             ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,2,deadlineitem);
+
+         }
+}
+
+
 
 
 
@@ -376,27 +414,4 @@ void MainWindow::on_pushButton_books_updateReadTime_clicked()
      }
 }
 
-
-
-void MainWindow::on_pushButton_home_tasks_new_tasks_refresh_clicked()
-{
-    QSqlQuery query;
-    query.exec("SELECT * FROM New_Tasks");
-    while (query.next()){
-
-        //ui->tableWidget_home_tasks_new_tasks->insertRow(0);// при таком варианте заполняется построчно в качало таблицы, результат- обратный порядок
-        int row_count = ui->tableWidget_home_tasks_new_tasks->rowCount();
-        ui->tableWidget_home_tasks_new_tasks->insertRow(row_count);
-
-        QTableWidgetItem *dateitem = new QTableWidgetItem(query.value(1).toString());
-        QTableWidgetItem *taskitem = new QTableWidgetItem(query.value(2).toString());
-        QTableWidgetItem *deadlineitem = new QTableWidgetItem (query.value(3).toString());
-
-
-        ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,0,dateitem);
-        ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,1,taskitem);
-        ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,2,deadlineitem);
-
-    }
-}
 

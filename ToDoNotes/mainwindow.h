@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QDebug>
 #include <QMainWindow>
 #include <QtWidgets>
 #include <QTreeWidgetItem>
@@ -54,6 +55,9 @@ private slots:
     void on_lineEdit_Add_Task_returnPressed();
 
     void on_pushButton_home_tasks_new_tasks_refresh_clicked();
+
+    bool new_task_check_for_user(QString &table_name,QString &column1, QString &column2);
+
 
 private:
     Ui::MainWindow *ui;

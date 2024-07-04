@@ -56,7 +56,7 @@ private slots:
 
     void on_pushButton_home_tasks_new_tasks_refresh_clicked();
 
-    bool new_task_check_for_user(QString &table_name,QString &column1, QString &column2, QString &column3);
+    bool query_check_3cols(QString &table_name,QString &column1, QString &column2, QString &column3);
 
 
 private:

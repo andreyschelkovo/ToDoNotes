@@ -1,15 +1,17 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 ////////////////////////////////////functions////////////////////////////////////////////////////////////////////
-bool MainWindow::new_task_check_for_user(QString &table_name,QString &column1, QString &column2, QString &column3)
+bool MainWindow::query_check_3cols(QString &table_name,QString &column1, QString &column2, QString &column3)
 {
     QSqlQuery query_check;
-    query_check.prepare("SELECT * FROM new_tasks WHERE date = :date AND task = :task AND DL = :dl");
+
+
+    query_check.prepare("SELECT * FROM "+table_name+" WHERE date = :date AND task = :task AND DL = :dl");
+
 
     query_check.bindValue(":date", column1);
     query_check.bindValue(":task", column2);
     query_check.bindValue(":dl", column3);
-
     if (!query_check.exec()) {
         qDebug() << query_check.lastError();
         return false;
@@ -20,37 +22,14 @@ bool MainWindow::new_task_check_for_user(QString &table_name,QString &column1, Q
     } else {
         return false;
     }
-    /*
-    query_check
-        .prepare(
-            "SELECT * FROM ? WHERE date = ? AND task = ? AND DL = ? "
-            //"SELECT date, task, DL FROM ? WHERE date = ? AND task = ? AND DL = ?"
-        );
-    query_check.addBindValue(table_name);
-    query_check.addBindValue(column1);
-    query_check.addBindValue(column2);
-    query_check.addBindValue(column3);
-    query_check.exec();
-       // qDebug() << query_check.lastError();
-       // qDebug() << query_check.executedQuery();
-       // qDebug() << query_check.lastQuery();
-       //return false;
-        if(query_check.size() > 0){
-            return true;
-        }else {
-            qDebug() << query_check.lastError();
-            qDebug() << query_check.executedQuery();
-            qDebug() << query_check.lastQuery();
-            return false;
-        }
-
-    */
-
-
-
-
 
 }
+
+
+
+
+
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -94,6 +73,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->textEdit_example_of_reason->setToolTip(tr("This is just an example of work. This message should be send on the server or DB and it should connect with the particular book in "
                                                   "wish list"));
     ui->label_example_of_reason->setToolTip(tr("just label of that example"));
+
+
+
+
 }
 
 MainWindow::~MainWindow()
@@ -198,8 +181,11 @@ void MainWindow::on_Add_Task_btn_clicked()
     }
 
     QString table = "new_tasks";
-    if(MainWindow::new_task_check_for_user(table, dateitemvalue, taskitemvalue, deadlineitemvalue)){
+    if(MainWindow::query_check_3cols
+        (table, dateitemvalue, taskitemvalue, deadlineitemvalue)){
         ui->tableWidget_home_tasks_new_tasks->item(0,0)->setBackground(Qt::green);
+        ui->tableWidget_home_tasks_new_tasks->item(0,1)->setBackground(Qt::green);
+        ui->tableWidget_home_tasks_new_tasks->item(0,2)->setBackground(Qt::green);
     }
 
 
@@ -454,5 +440,14 @@ void MainWindow::on_pushButton_books_updateReadTime_clicked()
         //варнинг окно про пустую таблицу
      }
 }
+
+
+
+
+
+
+
+
+
 
 

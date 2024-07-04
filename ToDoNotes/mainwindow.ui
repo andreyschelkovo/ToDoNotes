@@ -26,7 +26,7 @@
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="tab_1">
+    <widget class="QWidget" name="tab_home_task">
      <attribute name="title">
       <string>Home_Task</string>
      </attribute>
@@ -307,12 +307,12 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_2">
+    <widget class="QWidget" name="tab_child_task">
      <attribute name="title">
       <string>Child_Task</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="tab_3">
+    <widget class="QWidget" name="tab_books">
      <attribute name="title">
       <string>Books</string>
      </attribute>
@@ -560,32 +560,32 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab">
+    <widget class="QWidget" name="tab_skills">
      <attribute name="title">
       <string>Skills</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="tab_4">
+    <widget class="QWidget" name="tab_pllus_minus">
      <attribute name="title">
       <string>+/-</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="tab_5">
+    <widget class="QWidget" name="tab_spend">
      <attribute name="title">
       <string>Spend($)</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="tab_6">
+    <widget class="QWidget" name="tab_your_health">
      <attribute name="title">
       <string>Your_Health</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="tab_7">
+    <widget class="QWidget" name="tab_english">
      <attribute name="title">
       <string>English</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="tab_9">
+    <widget class="QWidget" name="tab_securities_stock">
      <attribute name="title">
       <string>Securities</string>
      </attribute>
@@ -715,17 +715,12 @@
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_12">
-     <attribute name="title">
-      <string>English</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="tab_13">
+    <widget class="QWidget" name="tab_sport">
      <attribute name="title">
       <string>Sport</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="tab_8">
+    <widget class="QWidget" name="tab_statistics">
      <attribute name="title">
       <string>Statistics</string>
      </attribute>

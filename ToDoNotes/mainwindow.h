@@ -8,10 +8,13 @@
 #include <QDate>
 #include <QSpinBox>
 #include <QListWidget>
+
+
 #include <deleted_description_form.h>
 #include <books_wishlist_reason_text.h>
 #include <QMessageBox>
 #include <books_from_where_form.h>
+//#include <myqtabwidget.h>
 
 #include <QSqlDatabase>
 #include <QSqlError>
@@ -54,9 +57,12 @@ private slots:
 
     void on_lineEdit_Add_Task_returnPressed();
 
-    void on_pushButton_home_tasks_new_tasks_refresh_clicked();
-
     bool query_check_3cols(QString &table_name,QString &column1, QString &column2, QString &column3);
+
+
+
+
+    void on_tabWidget_tabBarClicked(int index);
 
 
 private:
@@ -66,13 +72,14 @@ private:
     Deleted_description_form *deldescrform;
     Books_wishlist_reason_text *booksreasontext;
     Books_From_where_Form *books_fr_wh_form;
-
+    //MyQTabWidget *my_Q_Tab_Widget;
 
 public slots:
 
     void slot_for_copy_del_note(QString msg);
     void slot_for_books_reason_description(QString msg);
     void slot_for_books_from_where_form(QString msg);
+    //void slot_for_check_which_tab_is_open(int index);
 
 
 

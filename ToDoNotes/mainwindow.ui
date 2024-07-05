@@ -293,19 +293,6 @@
        </property>
       </column>
      </widget>
-     <widget class="QPushButton" name="pushButton_home_tasks_new_tasks_refresh">
-      <property name="geometry">
-       <rect>
-        <x>330</x>
-        <y>200</y>
-        <width>80</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Refresh</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="tab_child_task">
      <attribute name="title">

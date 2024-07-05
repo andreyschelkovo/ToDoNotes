@@ -43,10 +43,11 @@ MainWindow::MainWindow(QWidget *parent)
     deldescrform = new Deleted_description_form();
     booksreasontext = new Books_wishlist_reason_text();
     books_fr_wh_form = new Books_From_where_Form();
+   // my_Q_Tab_Widget = new MyQTabWidget();
     connect(books_fr_wh_form,&Books_From_where_Form::signal_from_books_fr_wh_form,this,&MainWindow::slot_for_books_from_where_form);
     connect(deldescrform,&Deleted_description_form::signal_for_del_note,this,&MainWindow::slot_for_copy_del_note);
     connect(booksreasontext,&Books_wishlist_reason_text::signal_for_books_reason_description,this,&MainWindow::slot_for_books_reason_description);
-
+    //connect(my_Q_Tab_Widget,&MyQTabWidget::signal_from_myQTab,this,&MainWindow::slot_for_check_which_tab_is_open);
 
 
     Date = Date.currentDate();
@@ -136,6 +137,44 @@ void MainWindow::on_lineEdit_company_returnPressed()
 ////////////////////////Home Tasks=====================================================================================================================
 ///
 ///
+///
+
+void MainWindow::on_tabWidget_tabBarClicked(int index)
+{
+    bool home_task_db_loaded = false;
+    if(ui->tableWidget_home_tasks_new_tasks->rowCount() == 0){
+        home_task_db_loaded = false;
+    }else {
+        home_task_db_loaded = true;
+    }
+
+    if(index == 0){
+        if (home_task_db_loaded == false){
+            QSqlQuery query;
+            query.exec("SELECT * FROM New_Tasks");
+            while (query.next()){
+
+                //ui->tableWidget_home_tasks_new_tasks->insertRow(0);// при таком варианте заполняется построчно в качало таблицы, результат- обратный порядок
+                int row_count = ui->tableWidget_home_tasks_new_tasks->rowCount();
+                ui->tableWidget_home_tasks_new_tasks->insertRow(row_count);
+
+                QTableWidgetItem *dateitem = new QTableWidgetItem(query.value(1).toString());
+                QTableWidgetItem *taskitem = new QTableWidgetItem(query.value(2).toString());
+                QTableWidgetItem *deadlineitem = new QTableWidgetItem (query.value(3).toString());
+
+
+                ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,0,dateitem);
+                ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,1,taskitem);
+                ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,2,deadlineitem);
+
+            }
+        }
+
+    }
+}
+
+
+
 void MainWindow::on_Add_Task_btn_clicked()
 {
 
@@ -330,31 +369,6 @@ void MainWindow::slot_for_copy_del_note(QString msg)
 
 
 
-void MainWindow::on_pushButton_home_tasks_new_tasks_refresh_clicked()
-{
-         QSqlQuery query;
-         query.exec("SELECT * FROM New_Tasks");
-         while (query.next()){
-
-             //ui->tableWidget_home_tasks_new_tasks->insertRow(0);// при таком варианте заполняется построчно в качало таблицы, результат- обратный порядок
-             int row_count = ui->tableWidget_home_tasks_new_tasks->rowCount();
-             ui->tableWidget_home_tasks_new_tasks->insertRow(row_count);
-
-             QTableWidgetItem *dateitem = new QTableWidgetItem(query.value(1).toString());
-             QTableWidgetItem *taskitem = new QTableWidgetItem(query.value(2).toString());
-             QTableWidgetItem *deadlineitem = new QTableWidgetItem (query.value(3).toString());
-
-
-             ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,0,dateitem);
-             ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,1,taskitem);
-             ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,2,deadlineitem);
-
-         }
-}
-
-
-
-
 
 /////////Books==================================================================================================================================================
 void MainWindow::on_pushButton_books_addnewbook_clicked()
@@ -399,6 +413,10 @@ void MainWindow::on_pushButton_books_addnewbook_clicked()
 
 }
 
+
+
+
+
 void MainWindow::slot_for_books_reason_description(QString msg)
 {
      ui->textEdit_example_of_reason->setText(msg);
@@ -413,6 +431,13 @@ void MainWindow::slot_for_books_from_where_form(QString msg)
      QTableWidgetItem *msg_from_where_form = new QTableWidgetItem(msg);
      ui->tableWidget_books_wishlist->setItem(0,3,msg_from_where_form->clone());
 }
+
+
+
+
+
+
+
 
 
 void MainWindow::on_pushButton_books_updateReadTime_clicked()
@@ -440,14 +465,5 @@ void MainWindow::on_pushButton_books_updateReadTime_clicked()
         //варнинг окно про пустую таблицу
      }
 }
-
-
-
-
-
-
-
-
-
 
 

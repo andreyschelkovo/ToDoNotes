@@ -6,12 +6,10 @@ bool MainWindow::query_check_3cols(QString &table_name,QString &column1, QString
     QSqlQuery query_check;
 
 
-    query_check.prepare("SELECT * FROM "+table_name+" WHERE date = :date AND task = :task AND DL = :dl");
-
-
+    query_check.prepare("SELECT * FROM " + table_name + " WHERE date = :date AND task = :task AND DL = :DL");
     query_check.bindValue(":date", column1);
     query_check.bindValue(":task", column2);
-    query_check.bindValue(":dl", column3);
+    query_check.bindValue(":DL", column3);
     if (!query_check.exec()) {
         qDebug() << query_check.lastError();
         return false;
@@ -25,7 +23,25 @@ bool MainWindow::query_check_3cols(QString &table_name,QString &column1, QString
 
 }
 
+class Kata_character//companies-типа компании, objects-типа обьекты строительства как примеры следующих классов
+{
+    //параметры или поля класса
+public:
 
+    QString name;
+    int weight;
+
+    void print_selfinfo(){
+        qDebug() << name;
+        qDebug() << weight;
+    }
+
+private://если не указать то по дефолту будет приват поля. открыто элементам внутри класса или дружесвенным классам и функциям
+
+
+protected:
+
+};
 
 
 
@@ -38,6 +54,17 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+
+    /////////////////////////////////////////////////////////////////
+    Kata_character my_kata_char;
+    my_kata_char.name = "ivan";
+    my_kata_char.weight = 98;
+    //qDebug() << my_kata_char.name;
+    //qDebug() << my_kata_char.weight;
+    my_kata_char.print_selfinfo();
+    /////////////////////////////////////////////////////////////////
+
+
     ui->setupUi(this);
 
     deldescrform = new Deleted_description_form();

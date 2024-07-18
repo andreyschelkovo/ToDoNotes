@@ -23,6 +23,49 @@ bool MainWindow::query_check_3cols(QString &table_name,QString &column1, QString
 
 }
 
+
+void MainWindow::all_data_select()
+{
+    QSqlQuery query;
+    query.exec("SELECT * FROM New_Tasks ORDER BY date_id DESC");
+    while (query.next()){
+
+        //ui->tableWidget_home_tasks_new_tasks->insertRow(0);// при таком варианте заполняется построчно в качало таблицы, результат- обратный порядок
+        int row_count = ui->tableWidget_home_tasks_new_tasks->rowCount();
+        ui->tableWidget_home_tasks_new_tasks->insertRow(row_count);
+
+        QTableWidgetItem *dateitem = new QTableWidgetItem(query.value(1).toString());
+        QTableWidgetItem *taskitem = new QTableWidgetItem(query.value(2).toString());
+        QTableWidgetItem *deadlineitem = new QTableWidgetItem (query.value(3).toString());
+
+
+        ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,0,dateitem);
+        ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,1,taskitem);
+        ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,2,deadlineitem);
+
+    }
+
+    query.exec("SELECT * FROM deleted_tasks ORDER BY date_id DESC");
+    while (query.next()){
+
+        //ui->tableWidget_home_tasks_new_tasks->insertRow(0);// при таком варианте заполняется построчно в качало таблицы, результат- обратный порядок
+        int row_count = ui->tableWidge_home_tasks_deleted_tasks->rowCount();
+        ui->tableWidge_home_tasks_deleted_tasks->insertRow(row_count);
+
+        QTableWidgetItem *dateitem = new QTableWidgetItem(query.value(1).toString());
+        QTableWidgetItem *taskitem = new QTableWidgetItem(query.value(2).toString());
+        QTableWidgetItem *deadlineitem = new QTableWidgetItem (query.value(3).toString());
+
+
+        ui->tableWidge_home_tasks_deleted_tasks->setItem(row_count ,0,dateitem);
+        ui->tableWidge_home_tasks_deleted_tasks->setItem(row_count ,1,taskitem);
+        ui->tableWidge_home_tasks_deleted_tasks->setItem(row_count ,2,deadlineitem);
+
+    }
+}
+
+
+
 class Kata_character//companies-типа компании, objects-типа обьекты строительства как примеры следующих классов
 {
     //параметры или поля класса
@@ -75,6 +118,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(deldescrform,&Deleted_description_form::signal_for_del_note,this,&MainWindow::slot_for_copy_del_note);
     connect(booksreasontext,&Books_wishlist_reason_text::signal_for_books_reason_description,this,&MainWindow::slot_for_books_reason_description);
     //connect(my_Q_Tab_Widget,&MyQTabWidget::signal_from_myQTab,this,&MainWindow::slot_for_check_which_tab_is_open);
+
+
 
 
     Date = Date.currentDate();
@@ -165,41 +210,6 @@ void MainWindow::on_lineEdit_company_returnPressed()
 ///
 ///
 ///
-
-void MainWindow::on_tabWidget_tabBarClicked(int index)
-{
-    bool home_task_db_loaded = false;
-    if(ui->tableWidget_home_tasks_new_tasks->rowCount() == 0){
-        home_task_db_loaded = false;
-    }else {
-        home_task_db_loaded = true;
-    }
-
-    if(index == 0){
-        if (home_task_db_loaded == false){
-            QSqlQuery query;
-            query.exec("SELECT * FROM New_Tasks");
-            while (query.next()){
-
-                //ui->tableWidget_home_tasks_new_tasks->insertRow(0);// при таком варианте заполняется построчно в качало таблицы, результат- обратный порядок
-                int row_count = ui->tableWidget_home_tasks_new_tasks->rowCount();
-                ui->tableWidget_home_tasks_new_tasks->insertRow(row_count);
-
-                QTableWidgetItem *dateitem = new QTableWidgetItem(query.value(1).toString());
-                QTableWidgetItem *taskitem = new QTableWidgetItem(query.value(2).toString());
-                QTableWidgetItem *deadlineitem = new QTableWidgetItem (query.value(3).toString());
-
-
-                ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,0,dateitem);
-                ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,1,taskitem);
-                ui->tableWidget_home_tasks_new_tasks->setItem(row_count ,2,deadlineitem);
-
-            }
-        }
-
-    }
-}
-
 
 
 void MainWindow::on_Add_Task_btn_clicked()
@@ -492,5 +502,8 @@ void MainWindow::on_pushButton_books_updateReadTime_clicked()
         //варнинг окно про пустую таблицу
      }
 }
+
+
+
 
 

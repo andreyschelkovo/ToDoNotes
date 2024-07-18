@@ -62,7 +62,6 @@ private slots:
 
 
 
-    void on_tabWidget_tabBarClicked(int index);
 
 
 private:
@@ -79,8 +78,10 @@ public slots:
     void slot_for_copy_del_note(QString msg);
     void slot_for_books_reason_description(QString msg);
     void slot_for_books_from_where_form(QString msg);
-    //void slot_for_check_which_tab_is_open(int index);
 
+
+
+    void all_data_select();
 
 
 

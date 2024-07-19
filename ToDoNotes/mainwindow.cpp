@@ -298,9 +298,11 @@ void MainWindow::on_Delete_btn_clicked()
 {
     bool wait = false;
     int id_from_row_which_have_to_be_removed = 0;
+
     Date = Date.currentDate();
 
     int number_of_selected_row = ui->tableWidget_home_tasks_new_tasks->currentRow();
+    QString id_from_row_which_have_to_be_removedWWW = ui->tableWidget_home_tasks_new_tasks->item(number_of_selected_row,0)->text();
     if (number_of_selected_row == -1){
         QMessageBox::warning(this,tr("Not choosen item for remove"),tr("You have to choose some field and only then press button"));
         wait = true;
@@ -309,7 +311,8 @@ void MainWindow::on_Delete_btn_clicked()
     }
     if (!wait){
         ui->tableWidge_home_tasks_deleted_tasks->insertRow(0);
-        id_from_row_which_have_to_be_removed = number_of_selected_row+1;
+        //id_from_row_which_have_to_be_removed = number_of_selected_row+1;
+        //id_from_row_which_have_to_be_removed = ui->tableWidget_home_tasks_new_tasks->item(number_of_selected_row,0)->text().toInt();
         int selected_row_column_count = ui->tableWidget_home_tasks_new_tasks->columnCount();
         QTableWidgetItem *delete_date = new QTableWidgetItem (Date.toString());
 

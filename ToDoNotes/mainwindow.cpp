@@ -297,12 +297,13 @@ void MainWindow::on_lineEdit_Add_Task_returnPressed()
 void MainWindow::on_Delete_btn_clicked()
 {
     bool wait = false;
+    int row_count = ui->tableWidget_home_tasks_new_tasks->rowCount();
     int id_from_row_which_have_to_be_removed = 0;
 
     Date = Date.currentDate();
 
-    int number_of_selected_row = ui->tableWidget_home_tasks_new_tasks->currentRow();
-    QString id_from_row_which_have_to_be_removedWWW = ui->tableWidget_home_tasks_new_tasks->item(number_of_selected_row,0)->text();
+    int number_of_selected_row = row_count - (ui->tableWidget_home_tasks_new_tasks->currentRow());
+
     if (number_of_selected_row == -1){
         QMessageBox::warning(this,tr("Not choosen item for remove"),tr("You have to choose some field and only then press button"));
         wait = true;
@@ -328,6 +329,18 @@ void MainWindow::on_Delete_btn_clicked()
         deldescrform->show();
 
         QSqlQuery query;
+        query.prepare("SELECT date_id FROM new_tasks LIMIT :row_number OFFSET 0");
+        query.bindValue(":row_number", number_of_selected_row);
+        if(!query.exec()){
+            qDebug() << query.lastError().text();
+        }
+        if (query.first()) {
+        id_from_row_which_have_to_be_removed = query.value(0).toInt();
+        QString dateId = query.value(1).toString();
+        }else {
+            qDebug() << "String not found";
+        }
+
         if (!query.exec("CREATE TABLE IF NOT EXISTS Deleted_Tasks (Date_id SERIAL PRIMARY KEY, Date TEXT,Task TEXT,DL TEXT)")){
             qDebug() << query.lastError().text();
         }

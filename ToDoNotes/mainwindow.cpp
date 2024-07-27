@@ -99,12 +99,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
 
     /////////////////////////////////////////////////////////////////
-    Kata_character my_kata_char;
-    my_kata_char.name = "ivan";
-    my_kata_char.weight = 98;
+    // Kata_character my_kata_char;
+    // my_kata_char.name = "ivan";
+    // my_kata_char.weight = 98;
     //qDebug() << my_kata_char.name;
     //qDebug() << my_kata_char.weight;
-    my_kata_char.print_selfinfo();
+    // my_kata_char.print_selfinfo();
     /////////////////////////////////////////////////////////////////
 
 
@@ -113,7 +113,7 @@ MainWindow::MainWindow(QWidget *parent)
     deldescrform = new Deleted_description_form();
     booksreasontext = new Books_wishlist_reason_text();
     books_fr_wh_form = new Books_From_where_Form();
-   // my_Q_Tab_Widget = new MyQTabWidget();
+    // my_Q_Tab_Widget = new MyQTabWidget();
     connect(books_fr_wh_form,&Books_From_where_Form::signal_from_books_fr_wh_form,this,&MainWindow::slot_for_books_from_where_form);
     connect(deldescrform,&Deleted_description_form::signal_for_del_note,this,&MainWindow::slot_for_copy_del_note);
     connect(booksreasontext,&Books_wishlist_reason_text::signal_for_books_reason_description,this,&MainWindow::slot_for_books_reason_description);
@@ -217,52 +217,52 @@ void MainWindow::on_Add_Task_btn_clicked()
 
 
     if ( ui->lineEdit_Add_Task->text().isEmpty()){
-    QMessageBox::warning(this,tr("Empty Task Error"),tr("You have to write smth into the field and only then press button"));
+        QMessageBox::warning(this,tr("Empty Task Error"),tr("You have to write smth into the field and only then press button"));
     }
     else {
-    ui->tableWidget_home_tasks_new_tasks->insertRow(0);
-    QTableWidgetItem *dateitem = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
-    QTableWidgetItem *taskitem = new QTableWidgetItem(ui->lineEdit_Add_Task->text());
-    QTableWidgetItem *deadlineitem = new QTableWidgetItem (ui->spinBox_deadline->text());
-    ui->tableWidget_home_tasks_new_tasks->setItem(0,0,dateitem);
-    ui->tableWidget_home_tasks_new_tasks->setItem(0,1,taskitem);
-    ui->tableWidget_home_tasks_new_tasks->setItem(0,2,deadlineitem);
+        ui->tableWidget_home_tasks_new_tasks->insertRow(0);
+        QTableWidgetItem *dateitem = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
+        QTableWidgetItem *taskitem = new QTableWidgetItem(ui->lineEdit_Add_Task->text());
+        QTableWidgetItem *deadlineitem = new QTableWidgetItem (ui->spinBox_deadline->text());
+        ui->tableWidget_home_tasks_new_tasks->setItem(0,0,dateitem);
+        ui->tableWidget_home_tasks_new_tasks->setItem(0,1,taskitem);
+        ui->tableWidget_home_tasks_new_tasks->setItem(0,2,deadlineitem);
 
-    ui->lineEdit_Add_Task->clear();
-    ui->spinBox_deadline->setValue(0);
-
-
-    QSqlQuery query;
+        ui->lineEdit_Add_Task->clear();
+        ui->spinBox_deadline->setValue(0);
 
 
-
-    if (!query.exec("CREATE TABLE IF NOT EXISTS New_Tasks (Date_id SERIAL PRIMARY KEY, Date TEXT,Task TEXT,DL TEXT)")){
-        qDebug() << query.lastError().text();
-    }
+        QSqlQuery query;
 
 
-    query.prepare("INSERT INTO New_Tasks (Date, Task, DL)"
-                  " VALUES (:Date, :Task, :DL)");
 
-    QString dateitemvalue = dateitem->text();
-    QString taskitemvalue = taskitem->text();
-    QString deadlineitemvalue = deadlineitem->text();
+        if (!query.exec("CREATE TABLE IF NOT EXISTS New_Tasks (Date_id SERIAL PRIMARY KEY, Date TEXT,Task TEXT,DL TEXT)")){
+            qDebug() << query.lastError().text();
+        }
 
-    query.bindValue(":Date", dateitemvalue);
-    query.bindValue(":Task", taskitemvalue);
-    query.bindValue(":DL", deadlineitemvalue);
 
-    if(!query.exec()){
-        qDebug() << query.lastError().text();
-    }
+        query.prepare("INSERT INTO New_Tasks (Date, Task, DL)"
+                      " VALUES (:Date, :Task, :DL)");
 
-    QString table = "new_tasks";
-    if(MainWindow::query_check_3cols
-        (table, dateitemvalue, taskitemvalue, deadlineitemvalue)){
-        ui->tableWidget_home_tasks_new_tasks->item(0,0)->setBackground(Qt::green);
-        ui->tableWidget_home_tasks_new_tasks->item(0,1)->setBackground(Qt::green);
-        ui->tableWidget_home_tasks_new_tasks->item(0,2)->setBackground(Qt::green);
-    }
+        QString dateitemvalue = dateitem->text();
+        QString taskitemvalue = taskitem->text();
+        QString deadlineitemvalue = deadlineitem->text();
+
+        query.bindValue(":Date", dateitemvalue);
+        query.bindValue(":Task", taskitemvalue);
+        query.bindValue(":DL", deadlineitemvalue);
+
+        if(!query.exec()){
+            qDebug() << query.lastError().text();
+        }
+
+        QString table = "new_tasks";
+        if(MainWindow::query_check_3cols
+            (table, dateitemvalue, taskitemvalue, deadlineitemvalue)){
+            ui->tableWidget_home_tasks_new_tasks->item(0,0)->setBackground(Qt::green);
+            ui->tableWidget_home_tasks_new_tasks->item(0,1)->setBackground(Qt::green);
+            ui->tableWidget_home_tasks_new_tasks->item(0,2)->setBackground(Qt::green);
+        }
 
 
     }
@@ -275,19 +275,19 @@ void MainWindow::on_Add_Task_btn_clicked()
 void MainWindow::on_lineEdit_Add_Task_returnPressed()
 {
     if ( ui->lineEdit_Add_Task->text().isEmpty()){
-    QMessageBox::warning(this,tr("Empty Task Error"),tr("You have to write smth into the field and only then press button"));
+        QMessageBox::warning(this,tr("Empty Task Error"),tr("You have to write smth into the field and only then press button"));
     }
     else {
-    ui->tableWidget_home_tasks_new_tasks->insertRow(0);
-    QTableWidgetItem *dateitem = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
-    QTableWidgetItem *taskitem = new QTableWidgetItem(ui->lineEdit_Add_Task->text());
-    QTableWidgetItem *deadlineitem = new QTableWidgetItem (ui->spinBox_deadline->text());
-    ui->tableWidget_home_tasks_new_tasks->setItem(0,0,dateitem);
-    ui->tableWidget_home_tasks_new_tasks->setItem(0,1,taskitem);
-    ui->tableWidget_home_tasks_new_tasks->setItem(0,2,deadlineitem);
+        ui->tableWidget_home_tasks_new_tasks->insertRow(0);
+        QTableWidgetItem *dateitem = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
+        QTableWidgetItem *taskitem = new QTableWidgetItem(ui->lineEdit_Add_Task->text());
+        QTableWidgetItem *deadlineitem = new QTableWidgetItem (ui->spinBox_deadline->text());
+        ui->tableWidget_home_tasks_new_tasks->setItem(0,0,dateitem);
+        ui->tableWidget_home_tasks_new_tasks->setItem(0,1,taskitem);
+        ui->tableWidget_home_tasks_new_tasks->setItem(0,2,deadlineitem);
 
-    ui->lineEdit_Add_Task->clear();
-    ui->spinBox_deadline->setValue(0);
+        ui->lineEdit_Add_Task->clear();
+        ui->spinBox_deadline->setValue(0);
     }
 }
 
@@ -297,12 +297,12 @@ void MainWindow::on_lineEdit_Add_Task_returnPressed()
 void MainWindow::on_Delete_btn_clicked()
 {
     bool wait = false;
-    int row_count = ui->tableWidget_home_tasks_new_tasks->rowCount();
-    int id_from_row_which_have_to_be_removed = 0;
+
 
     Date = Date.currentDate();
 
-    int number_of_selected_row = row_count - (ui->tableWidget_home_tasks_new_tasks->currentRow());
+   // int number_of_selected_row = row_count - (ui->tableWidget_home_tasks_new_tasks->currentRow());
+    int number_of_selected_row = ui->tableWidget_home_tasks_new_tasks->currentRow();
 
     if (number_of_selected_row == -1){
         QMessageBox::warning(this,tr("Not choosen item for remove"),tr("You have to choose some field and only then press button"));
@@ -329,23 +329,18 @@ void MainWindow::on_Delete_btn_clicked()
         deldescrform->show();
 
         QSqlQuery query;
-        query.prepare("SELECT date_id FROM new_tasks LIMIT :row_number OFFSET 0");
-        query.bindValue(":row_number", number_of_selected_row);
-        if(!query.exec()){
-            qDebug() << query.lastError().text();
-        }
-        if (query.first()) {
-        id_from_row_which_have_to_be_removed = query.value(0).toInt();
-        QString dateId = query.value(1).toString();
-        }else {
-            qDebug() << "String not found";
-        }
+
+       // if(!query.exec("SELECT  date_id FROM new_tasks WHERE row_number = " + QString::number(number_of_selected_row))){
+        //    qDebug() << query.lastError().text() << query.lastQuery();
+      //  }
+
+
 
         if (!query.exec("CREATE TABLE IF NOT EXISTS Deleted_Tasks (Date_id SERIAL PRIMARY KEY, Date TEXT,Task TEXT,DL TEXT)")){
             qDebug() << query.lastError().text();
         }
 
-        query.prepare("INSERT INTO Deleted_Tasks (Date, Task, DL)"
+        query.prepare("INSERT INTO deleted_Tasks (Date, Task, DL)"
                       " VALUES (:Date, :Task, :DL)");
 
         QString dateitemvalue = Date.toString();
@@ -363,10 +358,10 @@ void MainWindow::on_Delete_btn_clicked()
 
 
 
-        query.prepare("DELETE FROM new_tasks WHERE date_id = :ID");
-        query.bindValue(":ID",id_from_row_which_have_to_be_removed);
+        query.prepare("DELETE FROM new_tasks WHERE task = :task ");
+        query.bindValue(":task", taskitemvalue);
         if(!query.exec()){
-            qDebug() << query.lastError().text();
+            qDebug() << query.lastError().text() << query.lastQuery();
         }
         ui->tableWidget_home_tasks_new_tasks->removeRow(number_of_selected_row);
     }
@@ -394,31 +389,31 @@ void MainWindow::on_pushButton_Repeat_clicked()
 
 
 void MainWindow::on_Done_btn_clicked()
-     {
-     Date = Date.currentDate();
-     ui->tableWidget_home_tasks__done_tasks->insertRow(0);
-     int number_of_selected_row = ui->tableWidget_home_tasks_new_tasks->currentRow();
-     int selected_row_column_count = ui->tableWidget_home_tasks_new_tasks->columnCount();
-     QTableWidgetItem *done_date = new QTableWidgetItem (Date.toString());
+{
+    Date = Date.currentDate();
+    ui->tableWidget_home_tasks__done_tasks->insertRow(0);
+    int number_of_selected_row = ui->tableWidget_home_tasks_new_tasks->currentRow();
+    int selected_row_column_count = ui->tableWidget_home_tasks_new_tasks->columnCount();
+    QTableWidgetItem *done_date = new QTableWidgetItem (Date.toString());
 
-     ui->tableWidget_home_tasks__done_tasks->setItem(0,0,done_date);
-     for(int i = 1; i < selected_row_column_count; i++){
-         QTableWidgetItem *transfer_item = ui->tableWidget_home_tasks_new_tasks->item(number_of_selected_row,i);
-         ui->tableWidget_home_tasks__done_tasks->setItem(0,i,transfer_item->clone());
-         ui->tableWidget_home_tasks__done_tasks->item(0,i)->setBackground(Qt::green);
-     }
+    ui->tableWidget_home_tasks__done_tasks->setItem(0,0,done_date);
+    for(int i = 1; i < selected_row_column_count; i++){
+        QTableWidgetItem *transfer_item = ui->tableWidget_home_tasks_new_tasks->item(number_of_selected_row,i);
+        ui->tableWidget_home_tasks__done_tasks->setItem(0,i,transfer_item->clone());
+        ui->tableWidget_home_tasks__done_tasks->item(0,i)->setBackground(Qt::green);
+    }
 
     ui->tableWidget_home_tasks_new_tasks->removeRow(number_of_selected_row);
-     //itemto->setBackground(Qt::green);
+    //itemto->setBackground(Qt::green);
 
-     }
+}
 
 void MainWindow::slot_for_copy_del_note(QString msg)
-     {
-     ui->textEdit_Deleted_example->setText(msg);
+{
+    ui->textEdit_Deleted_example->setText(msg);
 
 
-     }
+}
 
 
 
@@ -426,43 +421,43 @@ void MainWindow::slot_for_copy_del_note(QString msg)
 /////////Books==================================================================================================================================================
 void MainWindow::on_pushButton_books_addnewbook_clicked()
 {
-     if ((ui->checkBox_books_audio->isChecked()==true)&&(ui->checkBox_books_text->isChecked()==true)){
-         QMessageBox::warning(this,tr("DoubleType Error"),tr("You have to choose only one type of the book, but probably you try to chooce both"));
+    if ((ui->checkBox_books_audio->isChecked()==true)&&(ui->checkBox_books_text->isChecked()==true)){
+        QMessageBox::warning(this,tr("DoubleType Error"),tr("You have to choose only one type of the book, but probably you try to chooce both"));
 
-     }
-     else if ((ui->checkBox_books_audio->isChecked()==false)&&(ui->checkBox_books_text->isChecked()==false)&&
-         (ui->radioButton_books_fiished->isChecked()==true)){
-         QMessageBox::warning(this,tr("None Type Error"),tr("You have to choose at least one type of the book, but probably you chooce no one"));
+    }
+    else if ((ui->checkBox_books_audio->isChecked()==false)&&(ui->checkBox_books_text->isChecked()==false)&&
+             (ui->radioButton_books_fiished->isChecked()==true)){
+        QMessageBox::warning(this,tr("None Type Error"),tr("You have to choose at least one type of the book, but probably you chooce no one"));
 
-     }
-     else {
-         if(ui->radioButton_books_wishlist->isChecked()==true){
-             ui->tableWidget_books_wishlist->insertRow(0);
-             QTableWidgetItem *bookname = new QTableWidgetItem(ui->lineEdit_books_book_name->text());
-             QTableWidgetItem *autorname = new QTableWidgetItem(ui->lineEdit_books_autors_name->text());
-             ui->tableWidget_books_wishlist->setItem(0,0,bookname);
-             ui->tableWidget_books_wishlist->setItem(0,1,autorname);
-             booksreasontext->show();
-             books_fr_wh_form->show();
+    }
+    else {
+        if(ui->radioButton_books_wishlist->isChecked()==true){
+            ui->tableWidget_books_wishlist->insertRow(0);
+            QTableWidgetItem *bookname = new QTableWidgetItem(ui->lineEdit_books_book_name->text());
+            QTableWidgetItem *autorname = new QTableWidgetItem(ui->lineEdit_books_autors_name->text());
+            ui->tableWidget_books_wishlist->setItem(0,0,bookname);
+            ui->tableWidget_books_wishlist->setItem(0,1,autorname);
+            booksreasontext->show();
+            books_fr_wh_form->show();
 
 
-         }else if (ui->radioButton_books_fiished->isChecked()==true){
-             ui->tableWidget_books_finished_list->insertRow(0);
-             QTableWidgetItem *bookname = new QTableWidgetItem(ui->lineEdit_books_book_name->text());
-             QTableWidgetItem *autorname = new QTableWidgetItem(ui->lineEdit_books_autors_name->text());
-             QTableWidgetItem *dateitem = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
-             ui->tableWidget_books_finished_list->setItem(0,0,bookname);
-             ui->tableWidget_books_finished_list->setItem(0,1,autorname);
-             ui->tableWidget_books_finished_list->setItem(0,3,dateitem);
-         }
-         if(ui->checkBox_books_audio->isChecked()==true){
-             QTableWidgetItem *audiomark = new QTableWidgetItem("audio");
-             ui->tableWidget_books_finished_list->setItem(0,2,audiomark);
-         }else if(ui->checkBox_books_text->isChecked()==true){
-             QTableWidgetItem *textmark = new QTableWidgetItem ("Text");
-             ui->tableWidget_books_finished_list->setItem(0,2,textmark);
-         }
-     }///
+        }else if (ui->radioButton_books_fiished->isChecked()==true){
+            ui->tableWidget_books_finished_list->insertRow(0);
+            QTableWidgetItem *bookname = new QTableWidgetItem(ui->lineEdit_books_book_name->text());
+            QTableWidgetItem *autorname = new QTableWidgetItem(ui->lineEdit_books_autors_name->text());
+            QTableWidgetItem *dateitem = new QTableWidgetItem(Date.toString("dd.MM.yyyy"));
+            ui->tableWidget_books_finished_list->setItem(0,0,bookname);
+            ui->tableWidget_books_finished_list->setItem(0,1,autorname);
+            ui->tableWidget_books_finished_list->setItem(0,3,dateitem);
+        }
+        if(ui->checkBox_books_audio->isChecked()==true){
+            QTableWidgetItem *audiomark = new QTableWidgetItem("audio");
+            ui->tableWidget_books_finished_list->setItem(0,2,audiomark);
+        }else if(ui->checkBox_books_text->isChecked()==true){
+            QTableWidgetItem *textmark = new QTableWidgetItem ("Text");
+            ui->tableWidget_books_finished_list->setItem(0,2,textmark);
+        }
+    }///
 
 }
 
@@ -472,17 +467,17 @@ void MainWindow::on_pushButton_books_addnewbook_clicked()
 
 void MainWindow::slot_for_books_reason_description(QString msg)
 {
-     ui->textEdit_example_of_reason->setText(msg);
+    ui->textEdit_example_of_reason->setText(msg);
 
-     QTableWidgetItem *reason = new QTableWidgetItem(msg);
-     ui->tableWidget_books_wishlist->setItem(0,2,reason);
+    QTableWidgetItem *reason = new QTableWidgetItem(msg);
+    ui->tableWidget_books_wishlist->setItem(0,2,reason);
 
 }
 
 void MainWindow::slot_for_books_from_where_form(QString msg)
 {
-     QTableWidgetItem *msg_from_where_form = new QTableWidgetItem(msg);
-     ui->tableWidget_books_wishlist->setItem(0,3,msg_from_where_form->clone());
+    QTableWidgetItem *msg_from_where_form = new QTableWidgetItem(msg);
+    ui->tableWidget_books_wishlist->setItem(0,3,msg_from_where_form->clone());
 }
 
 
@@ -495,28 +490,28 @@ void MainWindow::slot_for_books_from_where_form(QString msg)
 
 void MainWindow::on_pushButton_books_updateReadTime_clicked()
 {
-     int rowcountbooks = ui->tableWidget_books_finished_list->rowCount();
+    int rowcountbooks = ui->tableWidget_books_finished_list->rowCount();
 
-     if (rowcountbooks > 0){
-         for(int i = 0; i < rowcountbooks; i++ ){
-             QTableWidgetItem  *currentwidgetitem = ui->tableWidget_books_finished_list->item(i,4);//создаю итемс нужной для проверки ячейкой
-             QDate start_read_Date =QDate::fromString( ui->tableWidget_books_finished_list->item(i,3)->text(),"dd.MM.yyyy");//дата нчала чтения
-             QDate end_read_date = QDate::fromString((currentwidgetitem->text()),"dd.MM.yyyy");//дата окончания чтения
-             if (currentwidgetitem != nullptr){//проверка на наличие даты окончания чтения, известна л она вообще
-                 //вычисляем дату и суем в нужную ячейку
-                 int count_read_days = start_read_Date.daysTo(end_read_date);//ф-я подсчёта дней между первой датой и второй
-                 QTableWidgetItem *textmark2 = new QTableWidgetItem ();
-                 textmark2->setData(Qt::DisplayRole,QVariant(count_read_days));//не до конца понимаю что значат аргументы
-                 ui->tableWidget_books_finished_list->setItem(i,5,textmark2);//отобраю подсчёт
+    if (rowcountbooks > 0){
+        for(int i = 0; i < rowcountbooks; i++ ){
+            QTableWidgetItem  *currentwidgetitem = ui->tableWidget_books_finished_list->item(i,4);//создаю итемс нужной для проверки ячейкой
+            QDate start_read_Date =QDate::fromString( ui->tableWidget_books_finished_list->item(i,3)->text(),"dd.MM.yyyy");//дата нчала чтения
+            QDate end_read_date = QDate::fromString((currentwidgetitem->text()),"dd.MM.yyyy");//дата окончания чтения
+            if (currentwidgetitem != nullptr){//проверка на наличие даты окончания чтения, известна л она вообще
+                //вычисляем дату и суем в нужную ячейку
+                int count_read_days = start_read_Date.daysTo(end_read_date);//ф-я подсчёта дней между первой датой и второй
+                QTableWidgetItem *textmark2 = new QTableWidgetItem ();
+                textmark2->setData(Qt::DisplayRole,QVariant(count_read_days));//не до конца понимаю что значат аргументы
+                ui->tableWidget_books_finished_list->setItem(i,5,textmark2);//отобраю подсчёт
 
-             }
-             //delete currentwidgetitem;
-         }
+            }
+            //delete currentwidgetitem;
+        }
 
-     }
-     else {
+    }
+    else {
         //варнинг окно про пустую таблицу
-     }
+    }
 }
 
 
